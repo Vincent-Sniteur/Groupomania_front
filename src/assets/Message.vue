@@ -13,9 +13,9 @@ export default {
         <label for="floatingTextarea" class="form-label">Your message</label>
 
         <div class="button-container">
-            <button type="button" class="btn btn-primary me-1">Send</button>
+            <button id="btn-send" type="button" class="btn btn-primary me-1">Send</button>
             <input id="attach-file" type="file">
-            <label for="attach-file" class="btn btn-dark me-1">Attach file</label>
+            <label for="attach-file" class="btn btn-dark me-1">Add image</label>
         </div>
 
 

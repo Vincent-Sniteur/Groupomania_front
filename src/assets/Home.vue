@@ -42,7 +42,7 @@ export default {
                     <!-- POST MESSAGE -->
                     <Message />
                     
-                    <!-- Menu Last Message Posted -->  
+                    <!-- Menu Last Message Posted + img -->  
                     <LastMessage />
 
                     <!-- Menu Message Liked -->

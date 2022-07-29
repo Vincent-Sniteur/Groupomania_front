@@ -19,7 +19,7 @@ export default {
             <!-- NavBar -->
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><router-link to="/home" class="nav-link px-2 text-white">Home</router-link></li>
-                <li><router-link to="/login" class="nav-link px-2 text-white">Contact</router-link></li>
+                <li><router-link to="#" class="nav-link px-2 text-white">Contact</router-link></li>
                 <li><router-link to="#" class="nav-link px-2 text-white">About us</router-link></li>
             </ul>
             <!-- Auth Navbar -->
@@ -39,8 +39,5 @@ export default {
 </template>
 
 <style scoped>
-.bg-red {
-    background-color: #FD2D01;
-    text-decoration: none;
-}
+
 </style>

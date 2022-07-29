@@ -89,6 +89,7 @@ export default {
 <style scoped>
 /* POST */ 
 .post-comment {
+    background-color: #f8f8f8;
     border-top: 2px solid #4E5166;
     border-bottom: 2px solid #4E5166;
     position: relative;
@@ -120,14 +121,17 @@ export default {
 .edit-button {
     margin-left: 8px;
     color: #4E5166;
+    font-weight: 700;
 }
 .delete-button {
     margin-left: 8px;
     color: #FD2D01;
+    font-weight: 700;
 }
 .admin-button {
     margin-left: 8px;
     color: #FD2D01;
+    font-weight: 700;
 }
 
 /* ATTACH FILE IMG */

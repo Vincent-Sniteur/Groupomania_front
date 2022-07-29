@@ -37,12 +37,8 @@ export default {
     </main>
 </template>
 
-<style>
+<style scoped>
 
-.bg-red {
-    background-color: #FD2D01;
-    font-weight: 700;
-}
 .form-signin {
   max-width: 330px;
   padding: 15px;

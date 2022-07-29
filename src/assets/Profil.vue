@@ -12,8 +12,9 @@ export default {
         <div class="photo-container">
             <img src="./img/profil.png" alt="IMG DE PROFIL" width="100" height="100">
         </div>
-        <h3 class="title">John Doe</h3>
-        <p class="category">Developer</p>
+        <h3 class="title" id="user-name">John Doe</h3>
+        <p class="category" id="user-bio">Developer</p>
+        <!-- TODO MAIL TO USER -->
         <router-link to="mailto:{#AddFeature}" class="btn btn-dark">Contact</router-link>
         
     </div>
