@@ -21,6 +21,7 @@ import Register from './assets/Register.vue' // Import Register.vue
 const router = createRouter({ 
     history: createWebHistory(),
     routes: [
+        // { path: '/', component: App }, LANDING PAGE
         { path: '/home', component: Home }, // Add security for only user connected
         { path: '/login', component: Login },
         { path: '/register', component: Register }
