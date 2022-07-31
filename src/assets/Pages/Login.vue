@@ -20,7 +20,7 @@ export default {
 <template>
     <main class="form-signin w-100 m-auto">
         <form>
-            <img class="mx-auto d-block" src="./img/icon-left-font-monochrome-black.png" alt="" width="172" height="172">
+            <img class="mx-auto d-block" src="../img/icon-left-font-monochrome-black.svg" alt="" width="172" height="172">
             <h1 class="h3 mb-1 fw-normal text-center">Access your account</h1>
             <!-- Email Adress -->
             <div class="form-floating">
