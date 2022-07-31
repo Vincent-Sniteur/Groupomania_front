@@ -1,13 +1,12 @@
 <script>
 import Profil from '../Users/Profil.vue';
 import LastMessage from '../Messages/LastMessage.vue';
-import Likes from '../Messages/Likes.vue';
 import CreateMessage from '../Messages/CreateMessage.vue';
 
 // Export Home component
 export default {
     name: "Home",
-    components: { Profil, LastMessage, Likes, CreateMessage }
+    components: { Profil, LastMessage, CreateMessage }
 }
 
 </script>
@@ -30,11 +29,6 @@ export default {
                             Last Message
                         </router-link>
                     </li>
-                    <li class="nav-item">
-                        <router-link to="#likes" class="nav-link" data-toggle="tab" role="tab" aria-controls="likes">
-                            Likes
-                        </router-link>
-                    </li>
                 </ul>
           
                 <!-- POST MESSAGE & NAVBAR WALL x LIKES -->
@@ -44,9 +38,6 @@ export default {
                     
                     <!-- Menu Last Message Posted + img -->  
                     <LastMessage />
-
-                    <!-- TODO Menu Message Liked-->
-                    <Likes />
                 </div>
             </div>
         </div>
