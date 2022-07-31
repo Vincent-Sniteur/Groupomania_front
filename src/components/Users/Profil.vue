@@ -16,7 +16,7 @@ export default {
         <p class="category" id="user-bio">Full Stack Developer</p>
 
 
-        <!-- TODO BTN View profil-->
+        <!-- View profil-->
         <router-link to="/profil">
             <button class="btn btn-dark rounded-pill">Profil Page</button>
         </router-link>

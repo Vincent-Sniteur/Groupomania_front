@@ -21,7 +21,9 @@ export default {
         <img id="user-avatar" class="mr-3 rounded-circle img-flex" src="https://picsum.photos/50/50" alt="User Avatar" width="50" height="50">
 
         <!-- Username -->
+        <!-- TODO Add click to name of the user redirect to user profil via backend -->
         <h5 id="username" class="post-comment-username card-title">Utilisateur 1</h5>
+
 
         <!-- Attached file -->
         <div class="post-comment-attach mt-2">
@@ -111,6 +113,10 @@ export default {
     text-transform: uppercase;
     margin-inline-start: 3px;
     display: inline;
+}
+.post-comment-username:hover {
+    color: #FD2D01;
+    cursor: pointer;
 }
 .post-comment-timestamp {
     color: #4E5166;
