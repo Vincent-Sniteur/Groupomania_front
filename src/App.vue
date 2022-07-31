@@ -8,6 +8,8 @@ import Footer from './components/UI/Footer.vue';
 </script>
 
 <template>
+<!-- Import FontAwesome -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <body>
 
     <!-- Navbar -->
@@ -49,4 +51,5 @@ body {
     background-color: #FD2D01;
     font-weight: 700;
 }
+
 </style>

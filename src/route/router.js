@@ -11,6 +11,7 @@ import NewAccount from '../components/Pages/NewAccount.vue' // Import NewAccount
 import EditProfil from '../components/Pages/EditProfil.vue' // Import EditProfil
 import Landing from '../components/Pages/Landing.vue' // Import Landing
 import Admin from '../components/Pages/AdminPage.vue' // Import AdminPage
+import Contact from '../components/Pages/Contact.vue' // Import Contact
 
 // Import router fonction
 import { createRouter, createWebHistory } from 'vue-router'
@@ -27,6 +28,7 @@ const router = createRouter({
         { path: '/profil', component: Profil },
         { path: '/new-profil', component: NewAccount },
         { path: '/edit-profil', component: EditProfil },
+        { path: '/contact', component: Contact },
         { path: '/admin', component: Admin } // For admin only (security)
     ]
 })
