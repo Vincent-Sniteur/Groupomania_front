@@ -1,7 +1,7 @@
 <script>
 // Export Message component
 export default {
-    name: 'Message',
+    name: 'CreateMessage',
 }
 
 </script>

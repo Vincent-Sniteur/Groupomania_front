@@ -10,9 +10,9 @@ import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
 
 // Import base components
 import App from './App.vue' // Import App.vue
-import Login from './assets/Login.vue' // Import Login.vue
-import Home from './assets/Home.vue' // Import News.vue
-import Register from './assets/Register.vue' // Import Register.vue
+import Login from './assets/Pages/Login.vue' // Import Login.vue
+import Home from './assets/Pages/Home.vue' // Import News.vue
+import Register from './assets/Pages/Register.vue' // Import Register.vue
 
 
 
@@ -25,6 +25,7 @@ const router = createRouter({
         { path: '/home', component: Home }, // Add security for only user connected
         { path: '/login', component: Login },
         { path: '/register', component: Register }
+        // { path: '/admin', component: Admin } // For admin only (security)
     ]
 })
 

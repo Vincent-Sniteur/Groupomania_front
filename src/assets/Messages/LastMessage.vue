@@ -1,8 +1,6 @@
 <script>
-import Comment from './Comment.vue';
 export default {
-    name: "LastMessage",
-    components: { Comment }
+    name: "LastMessage"
 }
 
 // add function if heart is clicked then toggle class is-active
@@ -43,25 +41,13 @@ export default {
         <!-- Message -->
         <p id="user-message" class="post-comment-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
         
-        <!-- Post Option ( for futur comment mb-5 )-->
+        <!-- Post Option-->
         <div class="post-option mb-1">
             <!-- Heart -->
             <div class="placement">
                 <div class="heart is-active"></div>
             </div>
-        
-            <!-- Add Comment TODO Futur -->
-                <!-- <div class="post-reply">
-                    <router-link to="#" id="reply-btn" class="reply-btn">Reply</router-link>
-                </div> -->
         </div>
-
-        <!-- Comment Todo Futur-->
-            <!-- <div class="post-comment-reply">
-                <comment> </comment>
-                <comment> </comment>
-                <comment> </comment>
-            </div> -->
     </div>
 <!-- END EXEMPLE MESSAGE -->
 
@@ -98,19 +84,7 @@ export default {
             <div class="placement">
                 <div class="heart is-active"></div>
             </div>
-        
-            <!-- Add Comment TODO Futur -->
-                <!-- <div class="post-reply">
-                    <router-link to="#" id="reply-btn" class="reply-btn">Reply</router-link>
-                </div> -->
         </div>
-
-        <!-- Comment Todo Futur-->
-            <!-- <div class="post-comment-reply">
-                <comment> </comment>
-                <comment> </comment>
-                <comment> </comment>
-            </div> -->
     </div>
 
 <!-- END EXEMPLE MESSAGE -->
@@ -200,7 +174,7 @@ export default {
 .heart {
     width: 100px;
     height: 100px;
-    background: url("../assets/img/heart.png") no-repeat;
+    background: url("../img/heart.png") no-repeat;
     background-position: 0 0;
     cursor: pointer;
     transition: background-position 1s steps(28);

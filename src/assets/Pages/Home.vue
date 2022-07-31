@@ -1,13 +1,13 @@
 <script>
-import Profil from './Profil.vue';
-import LastMessage from './LastMessage.vue';
-import Likes from './Likes.vue';
-import Message from './Message.vue';
+import Profil from '../Users/Profil.vue';
+import LastMessage from '../Messages/LastMessage.vue';
+import Likes from '../Messages/Likes.vue';
+import CreateMessage from '../Messages/CreateMessage.vue';
 
 // Export Home component
 export default {
     name: "Home",
-    components: { Profil, LastMessage, Likes, Message }
+    components: { Profil, LastMessage, Likes, CreateMessage }
 }
 
 </script>
@@ -40,12 +40,12 @@ export default {
                 <!-- POST MESSAGE & NAVBAR WALL x LIKES -->
                 <div class="tab-content">
                     <!-- POST MESSAGE -->
-                    <Message />
+                    <CreateMessage />
                     
                     <!-- Menu Last Message Posted + img -->  
                     <LastMessage />
 
-                    <!-- Menu Message Liked -->
+                    <!-- TODO Menu Message Liked-->
                     <Likes />
                 </div>
             </div>
