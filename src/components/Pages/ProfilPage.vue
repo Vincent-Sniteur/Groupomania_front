@@ -27,13 +27,15 @@ export default {
                     <img id="user-profil-picture" src="../img/profil.png" alt="User Profil Picture" class="rounded-circle" width="150">
                     <div class="mt-3">
                       <h3 class="title" id="user-name">John Doe</h3>
-                      <p id="user-bio" class="text-secondary mb-1">Full Stack Developer</p>
+                      <p id="user-description" class="text-secondary mb-1">Full Stack Developer</p>
                       <p id="user-location" class="text-muted font-size-sm">Paris, France</p>
 
                     <!-- TODO Add Check if this is the profil of the logged user > ADD EDIT PROFIL BTN -->
                     <!-- if this is not the profil of the logged user > ADD CONTACT BTN -->
                       <button id="contact-user" class="btn btn-dark rounded-pill">Contact</button>
-                      <button id="edit-profil-user" class="btn btn-dark rounded-pill">Edit Profil</button>
+                      <RouterLink to="/edit-profil">
+                        <button id="edit-profil-user" class="btn btn-dark rounded-pill">Edit Profil</button>
+                      </RouterLink>
 
                     <!-- Add Check if Admin only -->
                       <button id="Admin-Profil-ban" class="btn bg-red rounded-pill">Ban User</button>

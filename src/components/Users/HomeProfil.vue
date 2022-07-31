@@ -13,7 +13,7 @@ export default {
             <img id="user-profil-picture" src="../img/profil.png" alt="IMG DE PROFIL" width="100" height="100">
         </div>
         <h3 class="title" id="user-name">John Doe</h3>
-        <p class="category" id="user-bio">Full Stack Developer</p>
+        <p class="category" id="user-description">Full Stack Developer</p>
 
 
         <!-- View profil-->

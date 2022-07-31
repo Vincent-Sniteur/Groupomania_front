@@ -37,6 +37,13 @@ body {
   font-weight: 500;
   background-color: #f3f3f3;
 }
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+}
 /* Btn color red */
 .bg-red {
     background-color: #FD2D01;

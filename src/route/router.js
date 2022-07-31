@@ -7,6 +7,8 @@ import Login from '../components/Pages/Login.vue' // Import Login
 import Home from '../components/Pages/Home.vue' // Import Home
 import Register from '../components/Pages/Register.vue' // Import Register
 import Profil from '../components/Pages/ProfilPage.vue' // Import ProfilPage
+import NewAccount from '../components/Pages/NewAccount.vue' // Import NewAccount
+import EditProfil from '../components/Pages/EditProfil.vue' // Import EditProfil
 
 // Import router fonction
 import { createRouter, createWebHistory } from 'vue-router'
@@ -20,7 +22,9 @@ const router = createRouter({
         { path: '/home', component: Home }, // Add security for only user connected
         { path: '/login', component: Login },
         { path: '/register', component: Register },
-        { path: '/profil', component: Profil }
+        { path: '/profil', component: Profil },
+        { path: '/new-profil', component: NewAccount },
+        { path: '/edit-profil', component: EditProfil }
         // { path: '/admin', component: Admin } // For admin only (security)
     ]
 })
