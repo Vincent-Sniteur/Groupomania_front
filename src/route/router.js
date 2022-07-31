@@ -9,6 +9,7 @@ import Register from '../components/Pages/Register.vue' // Import Register
 import Profil from '../components/Pages/ProfilPage.vue' // Import ProfilPage
 import NewAccount from '../components/Pages/NewAccount.vue' // Import NewAccount
 import EditProfil from '../components/Pages/EditProfil.vue' // Import EditProfil
+import Landing from '../components/Pages/Landing.vue' // Import Landing
 
 // Import router fonction
 import { createRouter, createWebHistory } from 'vue-router'
@@ -18,10 +19,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({ 
     history: createWebHistory(),
     routes: [
-        // { path: '/', component: App }, LANDING PAGE
+        { path: '/', component: Landing }, // Landing page for user & if user already logged, redirect to home page
         { path: '/home', component: Home }, // Add security for only user connected
-        { path: '/login', component: Login },
-        { path: '/register', component: Register },
+        { path: '/login', component: Login }, // if user already logged, redirect to home
+        { path: '/register', component: Register }, // if user already logged, redirect to home
         { path: '/profil', component: Profil },
         { path: '/new-profil', component: NewAccount },
         { path: '/edit-profil', component: EditProfil }

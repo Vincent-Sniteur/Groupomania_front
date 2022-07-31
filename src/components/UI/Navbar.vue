@@ -13,7 +13,7 @@ export default {
         <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <!-- Name / Logo -->
-           <router-link to="/home" class="text-decoration-none text-white">
+           <router-link to="/" class="text-decoration-none text-white">
                 <h1>Groupomania</h1>
            </router-link>
 
