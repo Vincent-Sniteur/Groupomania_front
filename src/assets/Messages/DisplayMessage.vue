@@ -96,7 +96,7 @@ export default {
 <style>
 /* POST */ 
 .post-comment {
-    background-color: #f3f3f3;
+    background-color: white;
     border-top: 2px solid #4E5166;
     border-bottom: 2px solid #4E5166;
     position: relative;

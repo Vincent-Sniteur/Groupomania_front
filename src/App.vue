@@ -34,7 +34,7 @@ import Footer from './assets/Footer.vue';
 body {
   font-family: 'Raleway', sans-serif;
   font-weight: 500;
-  background-color: #f8f9fa;
+  background-color: #f3f3f3;
 }
 /* Btn color red */
 .bg-red {
