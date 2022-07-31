@@ -15,8 +15,8 @@ export default {
             </div>
 
             <div class="form-item">
-              <label for="user-location" class="rl-label">Location</label>
-              <input type="text" id="user-location" name="location" placeholder="Your Location... ( Require )" required="required" class="require">
+              <label for="user-localisation" class="rl-label">Localisation</label>
+              <input type="text" id="user-localisation" name="localisation" placeholder="Your Localisation... ( Require )" required="required" class="require">
             </div>
 
             <div class="form-item">

@@ -27,23 +27,54 @@ export default {
                     <img id="user-profil-picture" src="../img/profil.png" alt="User Profil Picture" class="rounded-circle" width="150">
                     <div class="mt-3">
                       <h3 class="title" id="user-name">John Doe</h3>
-                      <p id="user-description" class="text-secondary mb-1">Full Stack Developer</p>
-                      <p id="user-location" class="text-muted font-size-sm">Paris, France</p>
-
+                        <table class="table table-sm mt-2 mb-4">
+                            <tbody>
+                              <tr>
+                                <th>Bio</th>
+                                <td id="user-description">Full Stack Developer</td>
+                              </tr>
+                              <tr>
+                                <th>Localisation</th>
+                                <td id="user-localisation">Paris, France</td>
+                              </tr>
+                              <tr>
+                                <th>Status</th>
+                                <td><span id="user-status" class="badge bg-success">Actif</span></td>
+                              </tr>
+                            </tbody>
+                        </table>
+                      
                     <!-- TODO Add Check if this is the profil of the logged user > ADD EDIT PROFIL BTN -->
                     <!-- if this is not the profil of the logged user > ADD CONTACT BTN -->
                       <button id="contact-user" class="btn btn-dark rounded-pill">Contact</button>
                       <RouterLink to="/edit-profil">
                         <button id="edit-profil-user" class="btn btn-dark rounded-pill">Edit Profil</button>
                       </RouterLink>
-
-                    <!-- Add Check if Admin only -->
-                      <button id="Admin-Profil-ban" class="btn bg-red rounded-pill">Ban User</button>
                     </div>
                   </div>
                 </div>
               </div>
               <!-- Profil Display -->
+
+              <!-- Stats user -->
+              <div class="card">
+                <div class="card-body text-center">
+                    <div class="row">
+                        <div class="col-4 border-end border-light">
+                            <h5 class="text-muted mt-1 mb-2 fw-normal">Messages</h5>
+                            <h2 class="mb-0 fw-bold">116</h2>
+                        </div>
+                        <div class="col-4 border-end border-light">
+                            <h5 class="text-muted mt-1 mb-2 fw-normal">Likes</h5>
+                            <h2 class="mb-0 fw-bold">87</h2>
+                        </div>
+                        <div class="col-4">
+                            <h5 class="text-muted mt-1 mb-2 fw-normal">Friends</h5>
+                            <h2 class="mb-0 fw-bold">0</h2>
+                        </div>
+                    </div>
+                </div>
+              </div>
 
               <!-- Profil Social -->
               <div class="card mt-3">

@@ -51,7 +51,72 @@ export default {
                 <!-- Panel -->
 
                 <!-- Commande Panel -->
-                <h2>Add panel option</h2>
+                <div class="admin-text go-to">
+                      <h3 class="dark-color">User Gestion</h3>
+                </div>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-xl-8">
+                      <div class="card">
+                        <div class="card-header">
+                          <h5 class="card-title mb-0">Last User</h5>
+                        </div>
+                        <div class="card-body">
+                          <table class="table table-striped" style="width:100%">
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Date Creation</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+                                <td>Patrick Cox</td>
+                                <td>02/02/22</td>
+                                <td>zzzz@zzz.com</td>
+                                <td><span class="badge bg-success">Actif</span></td>
+                              </tr>
+                              <tr>
+                                <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+                                <td>Jack Frost</td>
+                                <td>02/02/22</td>
+                                <td>zzzz@zzz.com</td>
+                                <td><span class="badge bg-danger">Banned</span></td>
+                              </tr>
+                              <tr>
+                                <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+                                <td>Jean Voilin</td>
+                                <td>02/02/22</td>
+                                <td>zzzz@zzz.com</td>
+                                <td><span class="badge bg-warning">Inactive</span></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-4">
+                      <div class="card">
+                        <div class="card-header">
+                          <h5 class="card-title mb-0">Last activity</h5>
+                        </div>
+                        <div class="card-body">
+                          <div class="row g-0">
+                            <h2>Texte</h2>
+                          </div>
+
+                              <!-- TODO ADMIN GESTION-->
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
             </div>
         </section>
 
