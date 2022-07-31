@@ -1,12 +1,12 @@
 <script>
-import Profil from '../Users/Profil.vue';
 import DisplayMessage from '../Messages/DisplayMessage.vue';
 import CreateMessage from '../Messages/CreateMessage.vue';
+import HomeProfil from '../Users/HomeProfil.vue';
 
 // Export Home component
 export default {
     name: "Home",
-    components: { Profil, DisplayMessage, CreateMessage }
+    components: { Profil: HomeProfil, DisplayMessage, CreateMessage, HomeProfil }
 }
 
 </script>
@@ -17,8 +17,8 @@ export default {
     <div class="container-fluid">
         <div class="row">
                     
-            <!-- Import Profil -->
-            <Profil />
+            <!-- Import HomeProfil -->
+            <HomeProfil />
 
 
             <!-- WALL -->

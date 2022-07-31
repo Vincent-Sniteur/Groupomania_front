@@ -77,6 +77,8 @@ export default {
             </div>
           </div>
 
+
+          <!-- Not visible if no owner of this page -->
           <!-- Send Message > Only by the owner of this profil -->
           <div class="container mb-4">
             <div class="row">
@@ -84,7 +86,9 @@ export default {
                 <div class="card">
                   <div class="card-header">
                     <h3 class="title">Send Message</h3>
-                    <CreateMessage></CreateMessage>
+                    <CreateMessage>
+
+                    </CreateMessage>
                   </div>
                 </div>
               </div>
@@ -100,7 +104,7 @@ export default {
                   <div class="card-header">
                     <h3 class="card-title">Last Message</h3>
                   </div>
-                  <!-- TODO ONLY MESSAGE OF THIS PROFIL USER -->
+                  <!-- TODO ONLY MESSAGE OF THIS PROFIL USER BY UserID -->
                     <DisplayMessage></DisplayMessage>
                     <DisplayMessage></DisplayMessage>
                     <DisplayMessage></DisplayMessage>

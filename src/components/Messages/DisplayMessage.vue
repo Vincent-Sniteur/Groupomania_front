@@ -22,7 +22,9 @@ export default {
 
         <!-- Username -->
         <!-- TODO Add click to name of the user redirect to user profil via backend -->
-        <h5 id="username" class="post-comment-username card-title">Utilisateur 1</h5>
+        <router-link to="/profil${user.id}">
+            <h5 id="username" class="post-comment-username card-title">${user.name}</h5>
+        </router-link>
 
 
         <!-- Attached file -->
@@ -91,7 +93,6 @@ export default {
     </div>
 
 <!-- END EXEMPLE MESSAGE -->
-
 </div>
 </template>
 
