@@ -15,7 +15,7 @@ export default {
         <div class="button-container">
             <button id="btn-send" type="button" class="btn btn-primary me-1">Send</button>
             <input id="attach-file" type="file">
-            <label for="attach-file" class="btn btn-dark me-1">Add image</label>
+            <label for="attach-file" class="btn btn-dark">Add image</label>
         </div>
 
 

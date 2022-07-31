@@ -1,12 +1,12 @@
 <script>
 import Profil from '../Users/Profil.vue';
-import LastMessage from '../Messages/LastMessage.vue';
+import DisplayMessage from '../Messages/DisplayMessage.vue';
 import CreateMessage from '../Messages/CreateMessage.vue';
 
 // Export Home component
 export default {
     name: "Home",
-    components: { Profil, LastMessage, CreateMessage }
+    components: { Profil, DisplayMessage, CreateMessage }
 }
 
 </script>
@@ -37,7 +37,7 @@ export default {
                     <CreateMessage />
                     
                     <!-- Menu Last Message Posted + img -->  
-                    <LastMessage />
+                    <DisplayMessage />
                 </div>
             </div>
         </div>

@@ -24,6 +24,8 @@ export default {
             </ul>
             <!-- Auth Navbar -->
             <div class="text-end">
+                <!-- If User logged > Add d-none to login & register Btn -->
+                <!-- If User not logged > Add d-none to Disconnect Btn -->
                 <!-- Login Btn -->
                 <router-link to="/login">
                     <button id="btn-login" type="button" class="btn btn-outline-light me-2">Login</button>
@@ -32,6 +34,9 @@ export default {
                 <router-link to="/register">
                     <button id="btn-register" type="button" class="btn text-light bg-red">Register</button>
                 </router-link>
+
+                <!-- Disconnect Btn -->
+                <button id="btn-disconnect" type="button" class="btn text-light bg-red">Disconnect</button>
             </div>
         </div>
         </div>

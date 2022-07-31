@@ -1,6 +1,6 @@
 <script>
 export default {
-    name: "LastMessage"
+    name: "DisplayMessage",
 }
 
 // add function if heart is clicked then toggle class is-active
