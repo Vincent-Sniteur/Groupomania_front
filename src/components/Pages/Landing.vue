@@ -1,5 +1,8 @@
 <script>
+// Import Register
 import Register from './Register.vue';
+
+// Export Landing component
 export default {
     name: "Landing",
     components: { Register }

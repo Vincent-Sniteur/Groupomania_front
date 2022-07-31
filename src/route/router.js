@@ -10,6 +10,7 @@ import Profil from '../components/Pages/ProfilPage.vue' // Import ProfilPage
 import NewAccount from '../components/Pages/NewAccount.vue' // Import NewAccount
 import EditProfil from '../components/Pages/EditProfil.vue' // Import EditProfil
 import Landing from '../components/Pages/Landing.vue' // Import Landing
+import Admin from '../components/Pages/AdminPage.vue' // Import AdminPage
 
 // Import router fonction
 import { createRouter, createWebHistory } from 'vue-router'
@@ -25,8 +26,8 @@ const router = createRouter({
         { path: '/register', component: Register }, // if user already logged, redirect to home
         { path: '/profil', component: Profil },
         { path: '/new-profil', component: NewAccount },
-        { path: '/edit-profil', component: EditProfil }
-        // { path: '/admin', component: Admin } // For admin only (security)
+        { path: '/edit-profil', component: EditProfil },
+        { path: '/admin', component: Admin } // For admin only (security)
     ]
 })
 
