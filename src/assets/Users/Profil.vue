@@ -15,7 +15,7 @@ export default {
         <h3 class="title" id="user-name">John Doe</h3>
         <p class="category" id="user-bio">Developer</p>
         <!-- TODO MAIL TO USER -->
-        <router-link to="mailto:{#AddFeature}" class="btn btn-dark">Contact</router-link>
+        <router-link to="mailto:{#AddFeature}" class="btn btn-dark rounded-pill">Contact</router-link>
         
     </div>
 </div>

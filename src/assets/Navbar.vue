@@ -2,6 +2,7 @@
 // Export Navbar component
 export default {
     name: 'Navbar',
+    // ...
 }
 
 </script>
@@ -28,15 +29,15 @@ export default {
                 <!-- If User not logged > Add d-none to Disconnect Btn -->
                 <!-- Login Btn -->
                 <router-link to="/login">
-                    <button id="btn-login" type="button" class="btn btn-outline-light me-2">Login</button>
+                    <button id="btn-login" type="button" class="btn btn-outline-light me-2 rounded-pill">Login</button>
                 </router-link>
                 <!-- Register Btn -->
                 <router-link to="/register">
-                    <button id="btn-register" type="button" class="btn text-light bg-red">Register</button>
+                    <button id="btn-register" type="button" class="btn text-light bg-red rounded-pill">Register</button>
                 </router-link>
 
                 <!-- Disconnect Btn -->
-                <button id="btn-disconnect" type="button" class="btn text-light bg-red">Disconnect</button>
+                <button id="btn-disconnect" type="button" class="btn text-light bg-red rounded-pill">Disconnect</button>
             </div>
         </div>
         </div>

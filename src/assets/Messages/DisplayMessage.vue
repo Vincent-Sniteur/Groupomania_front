@@ -1,6 +1,7 @@
 <script>
 export default {
     name: "DisplayMessage",
+    // ...
 }
 
 // add function if heart is clicked then toggle class is-active
@@ -23,9 +24,9 @@ export default {
         <h5 id="username" class="post-comment-username card-title">Utilisateur 1</h5>
 
         <!-- Attached file -->
-        <!-- <div class="post-comment-attach mt-2">
-            <img class="card-img-top mb-1" src="https://picsum.photos/500/500" alt="Attached file">
-        </div> -->
+        <div class="post-comment-attach mt-2">
+            <!-- <img class="card-img-top mb-1" src="https://picsum.photos/500/500" alt="Attached file"> -->
+        </div>
 
         <!-- Timestamp & User option -->
         <p id="message-info" class="post-comment-timestamp mt-2">25 mins ago
