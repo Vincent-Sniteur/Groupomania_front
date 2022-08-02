@@ -3,7 +3,7 @@
 import Navbar from './components/UI/Navbar.vue';
 // Import Footer component
 import Footer from './components/UI/Footer.vue';
-
+// export app
 
 </script>
 
@@ -23,8 +23,8 @@ import Footer from './components/UI/Footer.vue';
 
 
     <!-- Footer -->
-    <Footer />
-
+    <Footer> </Footer>
+    
   </body>
 </template>
 

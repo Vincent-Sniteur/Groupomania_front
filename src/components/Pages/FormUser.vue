@@ -43,12 +43,21 @@ export default {
             </div>
 
             <!-- User Avatar -->
-            <div class="form-item">
+            <div class="form-item position-absolute">
                 <label for="topic_description" class="rl-label">Avatar</label>
                 <input id="user-avatar" type="file">
                 <label for="user-avatar" class="rl-label button rounded-pill">Add image</label>
+                <p>Size 300x300</p>
+
+                <!-- Show Avatar -->
+                <div class="show-avatar">
+                  <img id="show-user-avatar" src="https://via.placeholder.com/300" alt="">
+                </div>
             </div>
           </div>
+
+          
+          
 
           <!-- BUTTONS -->
           <div class="form-actions right">
@@ -145,5 +154,15 @@ textarea {
 }
 .button:hover {
     background-color: #00c400;
+}
+.show-avatar {
+    position: relative;
+    left: 100%;
+    top: -130px;
+}
+.show-avatar img{
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
 }
 </style>

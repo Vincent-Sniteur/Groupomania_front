@@ -19,8 +19,6 @@ export default {
             <input id="attach-file" type="file">
             <label for="attach-file" class="btn btn-dark rounded-pill">Add image</label>
         </div>
-
-
 </div>
 </template>
 
