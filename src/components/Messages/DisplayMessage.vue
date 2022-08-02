@@ -14,9 +14,9 @@ export default {
 
 
 <template>
-<div class="tab-pane active" id="home" role="tabpanel" aria-expanded="true">
+<div class="active" id="home" role="tabpanel" aria-expanded="true">
 <!-- EXEMPLE MESSAGE NO ATTACHED FILE -->
-    <div class="media Tweets post-comment">
+    <div class="post-comment">
         <!-- Profil img -->
         <img id="user-avatar" class="mr-3 rounded-circle img-flex" src="https://picsum.photos/50/50" alt="User Avatar" width="50" height="50">
 
@@ -57,7 +57,7 @@ export default {
 <!-- END EXEMPLE MESSAGE -->
 
 <!-- EXEMPLE MESSAGE WITH ATTACHED FILE -->
-    <div class="media Tweets post-comment">
+    <div class="post-comment">
         <!-- Profil img -->
         <img id="user-avatar" class="mr-3 rounded-circle img-flex" src="https://picsum.photos/50/50" alt="User Avatar" width="50" height="50">
 

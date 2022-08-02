@@ -9,11 +9,13 @@ export default {
 <template>
 <!-- Message Send & Attach file -->
 <div class="form-floating mb-1">
-        <textarea class="form-control mb-1" placeholder="Your message" id="floatingTextarea" style="height: 75px;"></textarea>
-        <label for="floatingTextarea" class="form-label">Your message</label>
-
+        <!-- Message box -->
+        <div class="panel-body">
+            <textarea class="form-control mb-1" placeholder="Your message" id="floatingTextarea" maxlength="500"></textarea>
+        </div>
+        <!-- Message button -->
         <div class="button-container">
-            <button id="btn-send" type="button" class="btn btn-primary me-1 rounded-pill">Send</button>
+            <button id="btn-send" type="button" class="btn btn-primary me-1 rounded-pill pull-right">Send</button>
             <input id="attach-file" type="file">
             <label for="attach-file" class="btn btn-dark rounded-pill">Add image</label>
         </div>
@@ -27,5 +29,12 @@ export default {
 
 input[type=file] {
     display: none;
+}
+.panel-body {
+    max-height:350px;
+    overflow:auto;
+}
+.panel-body textarea {
+    height: 75px;
 }
 </style>
