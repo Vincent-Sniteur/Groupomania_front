@@ -10,6 +10,9 @@ Frontend P7 in construction
 
 * Host server : `http://127.0.0.1:5173/`
 
+## Backend
+
+* [Backend Server & Documentation](https://github.com/Vincent-Sniteur/Groupomania_back)
 
 ## Requierement
 
