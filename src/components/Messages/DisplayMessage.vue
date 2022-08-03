@@ -14,7 +14,7 @@ export default {
 
 
 <template>
-<div class="active" id="home" role="tabpanel" aria-expanded="true">
+<div class="active mt-3" id="home" role="tabpanel" aria-expanded="true">
 <!-- EXEMPLE MESSAGE NO ATTACHED FILE -->
     <div class="post-comment">
         <!-- Profil img -->
