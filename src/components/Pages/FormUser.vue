@@ -46,7 +46,7 @@ export default {
             <div class="form-item position-absolute">
                 <label for="topic_description" class="rl-label">Avatar</label>
                 <input id="user-avatar" type="file">
-                <label for="user-avatar" class="rl-label button rounded-pill">Add image</label>
+                <label for="user-avatar" class="rl-label button rounded-pill">Edit image</label>
                 <p>Size 300x300</p>
 
                 <!-- Show Avatar -->

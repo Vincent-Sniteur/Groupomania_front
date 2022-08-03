@@ -21,16 +21,41 @@ import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({ 
     history: createWebHistory(),
     routes: [
-        { path: '/', component: Landing }, // Landing page for user & if user already logged, redirect to home page
-        { path: '/home', component: Home }, // Add security for only user connected
+        { path: '/', redirect: "/home" }, // Add redict to home if user logged
+        { path: '/home', component: Home, meta: { requiresAuth: true } }, // Add security for only user connected
         { path: '/login', component: Login }, // if user already logged, redirect to home
         { path: '/register', component: Register }, // if user already logged, redirect to home
-        { path: '/profil', component: Profil },
-        { path: '/new-profil', component: NewAccount },
-        { path: '/edit-profil', component: EditProfil },
+        { path: '/profil', component: Profil, meta: { requiresAuth: true } },
+        { path: '/new-profil', component: NewAccount, meta: { requiresAuth: true } },
+        { path: '/edit-profil', component: EditProfil, meta: { requiresAuth: true } },
         { path: '/contact', component: Contact },
-        { path: '/admin', component: Admin } // For admin only (security)
+        { path: '/admin', component: Admin, meta: { requiresAuth: true, requiresAdmin: true } } // For admin only (security)
     ]
 })
+
+// Verify if user is logged or not & if is admin or not ( in local storage for the moment )
+// router.beforeEach((to, from, next) => {
+//     if (to.matched.some(record => record.meta.requiresAuth)) {
+//         if (localStorage.getItem('token')) {
+//             next()
+//         } else {
+//             next('/login')
+//         }
+//     }
+//     if (to.matched.some(record => record.meta.requiresAdmin)) {
+//         if (localStorage.getItem('token')) {
+//             if (localStorage.getItem('role') === 'admin') {
+//                 next()
+//             } else {
+//                 next('/home')
+//             }
+//         } else {
+//             next('/login')
+//         }
+//     }
+//     next()
+// }
+// )
+
 
 export { router }

@@ -16,9 +16,9 @@ export default {
 <template>
 
 <div class="container">
-    <div class="main-body">
+    <div class="main-body w-75 mx-auto">
 
-          <div class="row gutters-sm">
+          <div class="row">
             <div class="md-4 mb-4">
               <!-- Profil Display -->
               <div class="card">
@@ -57,9 +57,9 @@ export default {
               <!-- Profil Display -->
 
               <!-- Stats user -->
-              <div class="card">
+              <div class="card profil-stat">
                 <div class="card-body text-center">
-                    <div class="row">
+                    <div class="row float-left">
                         <div class="col-4 border-end border-light">
                             <h5 class="text-muted mt-1 mb-2 fw-normal">Messages</h5>
                             <h2 class="mb-0 fw-bold">116</h2>
@@ -187,15 +187,7 @@ export default {
     min-height: 1px;
     padding: 1rem;
 }
-
-.gutters-sm {
-    margin-right: -8px;
-    margin-left: -8px;
+.profil-stat h5 {
+    font-size: 1rem;
 }
-
-.gutters-sm>.col, .gutters-sm>[class*=col-] {
-    padding-right: 8px;
-    padding-left: 8px;
-}
-
 </style>
