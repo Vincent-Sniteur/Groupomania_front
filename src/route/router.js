@@ -33,6 +33,7 @@ const router = createRouter({
     ]
 })
 
+// ADD IN BACKEND
 // Verify if user is logged or not & if is admin or not ( in local storage for the moment )
 // router.beforeEach((to, from, next) => {
 //     if (to.matched.some(record => record.meta.requiresAuth)) {

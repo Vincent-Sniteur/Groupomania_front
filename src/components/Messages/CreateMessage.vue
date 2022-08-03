@@ -11,7 +11,7 @@ export default {
 <div class="form-floating mb-1">
         <!-- Message box -->
         <div class="panel-body">
-            <textarea class="form-control mb-1" placeholder="Your message" id="floatingTextarea" maxlength="500"></textarea>
+            <textarea class="form-control mb-1" placeholder="Your message" id="new-message" maxlength="500"></textarea>
         </div>
         <!-- Message button -->
         <div class="button-container">
