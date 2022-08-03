@@ -21,7 +21,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({ 
     history: createWebHistory(),
     routes: [
-        { path: '/', redirect: "/home" }, // Add redict to home if user logged
+        { path: '/', component: Landing }, // Add redict to home if user logged
         { path: '/home', component: Home, meta: { requiresAuth: true } }, // Add security for only user connected
         { path: '/login', component: Login }, // if user already logged, redirect to home
         { path: '/register', component: Register }, // if user already logged, redirect to home
@@ -32,31 +32,78 @@ const router = createRouter({
         { path: '/admin', component: Admin, meta: { requiresAuth: true, requiresAdmin: true } } // For admin only (security)
     ]
 })
+// User page if logged
+// /home, /profil, /new-profil, /edit-profil, admin
 
-// ADD IN BACKEND
-// Verify if user is logged or not & if is admin or not ( in local storage for the moment )
-// router.beforeEach((to, from, next) => {
-//     if (to.matched.some(record => record.meta.requiresAuth)) {
-//         if (localStorage.getItem('token')) {
-//             next()
-//         } else {
-//             next('/login')
-//         }
-//     }
-//     if (to.matched.some(record => record.meta.requiresAdmin)) {
-//         if (localStorage.getItem('token')) {
-//             if (localStorage.getItem('role') === 'admin') {
-//                 next()
-//             } else {
-//                 next('/home')
-//             }
-//         } else {
-//             next('/login')
-//         }
-//     }
-//     next()
-// }
-// )
+// User page if not logged
+// /, /login, /register
+
+// if User logged and admin
+// /admin
+
+// All time page logged or not
+// /contact, /about
 
 
+
+
+// Router Guard
+
+const publicPaths = ['/', '/login', '/register']
+
+// Router security status user before login
+router.beforeEach((to, from, next) => {
+    console.log(to)
+    console.log(from)
+
+    // If user want to access to login page or register page, landing page
+    if (to.path !== publicPaths) {
+        next()
+    }
+})
+
+
+// Redirect to loggin if user not logged
+router.beforeEach((to, from, next) => {
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+    const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin)
+
+    // If user not logged or as a valide token > redirect to landing page
+    if (requiresAuth && !isTokenValide()) {
+        next('/')
+    }
+
+    // if user already logged, redirect to home
+    if (to.path === '/login' && isTokenValide()) {
+        next('/home')
+    }
+    if (to.path === '/register' && isTokenValide()) {
+        next('/home')
+    }
+    if (to.path === '/' && isTokenValide()) {
+        next('/home')
+    }
+
+    // If user logged & as a valide token & is admin > redirect to admin page
+    else if (requiresAuth && requiresAdmin && !isTokenValide()) {
+        next('/admin')
+    }
+
+    // User is logged & as a valide token > Access to the private page
+    else {
+        next()
+    }
+    
+})
+
+
+//  Check if the token exist & valide 
+function isTokenValide() {
+    const token = localStorage.getItem('token')
+    return token === "Mon super token"
+}
+
+
+
+// Export router
 export { router }
