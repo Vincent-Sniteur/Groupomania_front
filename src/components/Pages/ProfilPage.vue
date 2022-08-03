@@ -50,9 +50,9 @@ export default {
                     <!-- TODO check Mailto in routerlink -->
 
                     <!-- CONTACT Button -->
-                      <RouterLink to="mailto:${user.email}">
+                      <a href="mailto:${user.email}">
                         <button id="contact-user" class="btn btn-dark rounded-pill">Contact</button>
-                      </RouterLink>
+                      </a>
                     <!-- Edit Profil Button -->
                       <RouterLink to="/edit-profil">
                         <button id="edit-profil-user" class="btn btn-dark rounded-pill">Edit Profil</button>
@@ -95,9 +95,9 @@ export default {
                       </svg>
                       Website
                     </h6>
-                    <RouterLink to="https://github.com/Vincent-Sniteur" class="text-secondary" target="_blank"> 
+                    <a href="https://github.com/Vincent-Sniteur" class="text-secondary" target="_blank"> 
                       <span id="user-website" class="text-secondary">https://github.com/Vincent-Sniteur</span>
-                    </RouterLink>
+                    </a>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0">
@@ -106,9 +106,9 @@ export default {
                       </svg>
                       Github
                     </h6>
-                    <RouterLink to="https://github.com/Vincent-Sniteur" class="text-secondary" target="_blank"> 
+                    <a href="https://github.com/Vincent-Sniteur" class="text-secondary" target="_blank"> 
                       <span id="user-github" class="text-secondary">Vincent-Sniteur</span>
-                    </RouterLink>
+                    </a>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0">
@@ -117,9 +117,9 @@ export default {
                       </svg>
                       Twitter
                     </h6>
-                    <RouterLink to="https://twitter.com/Sniteur" class="text-secondary" target="_blank"> 
+                    <a href="https://twitter.com/Sniteur" class="text-secondary" target="_blank"> 
                       <span id="user-twitter" class="text-secondary">@Sniteur</span>
-                    </RouterLink>
+                    </a>
                   </li>
                 </ul>
               </div>
