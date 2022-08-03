@@ -46,7 +46,14 @@ export default {
                       
                     <!-- TODO Add Check if this is the profil of the logged user > ADD EDIT PROFIL BTN -->
                     <!-- if this is not the profil of the logged user > ADD CONTACT BTN -->
-                      <button id="contact-user" class="btn btn-dark rounded-pill">Contact</button>
+
+                    <!-- TODO check Mailto in routerlink -->
+
+                    <!-- CONTACT Button -->
+                      <RouterLink to="mailto:${user.email}">
+                        <button id="contact-user" class="btn btn-dark rounded-pill">Contact</button>
+                      </RouterLink>
+                    <!-- Edit Profil Button -->
                       <RouterLink to="/edit-profil">
                         <button id="edit-profil-user" class="btn btn-dark rounded-pill">Edit Profil</button>
                       </RouterLink>
@@ -68,15 +75,15 @@ export default {
                             <h5 class="text-muted mt-1 mb-2 fw-normal">Likes</h5>
                             <h2 class="mb-0 fw-bold">87</h2>
                         </div>
-                        <div class="col-4">
+                        <!-- <div class="col-4">
                             <h5 class="text-muted mt-1 mb-2 fw-normal">Friends</h5>
                             <h2 class="mb-0 fw-bold">0</h2>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
               </div>
 
-              <!-- Profil Social -->
+              <!-- Profil Social TODO LINK PROFIL -->
               <div class="card mt-3">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -88,7 +95,9 @@ export default {
                       </svg>
                       Website
                     </h6>
-                    <span id="user-website" class="text-secondary">https://xxxxx.com</span>
+                    <RouterLink to="https://github.com/Vincent-Sniteur" class="text-secondary" target="_blank"> 
+                      <span id="user-website" class="text-secondary">https://github.com/Vincent-Sniteur</span>
+                    </RouterLink>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0">
@@ -97,7 +106,9 @@ export default {
                       </svg>
                       Github
                     </h6>
-                    <span id="user-github" class="text-secondary">xxxxx</span>
+                    <RouterLink to="https://github.com/Vincent-Sniteur" class="text-secondary" target="_blank"> 
+                      <span id="user-github" class="text-secondary">Vincent-Sniteur</span>
+                    </RouterLink>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0">
@@ -106,7 +117,9 @@ export default {
                       </svg>
                       Twitter
                     </h6>
-                    <span id="user-twitter" class="text-secondary">@xxxxx</span>
+                    <RouterLink to="https://twitter.com/Sniteur" class="text-secondary" target="_blank"> 
+                      <span id="user-twitter" class="text-secondary">@Sniteur</span>
+                    </RouterLink>
                   </li>
                 </ul>
               </div>
@@ -189,5 +202,8 @@ export default {
 }
 .profil-stat h5 {
     font-size: 1rem;
+}
+.list-group span {
+    font-size: 0.8rem;
 }
 </style>
