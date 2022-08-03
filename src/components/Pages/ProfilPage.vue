@@ -67,18 +67,14 @@ export default {
               <div class="card profil-stat">
                 <div class="card-body text-center">
                     <div class="row float-left">
-                        <div class="col-4 border-end border-light">
+                        <div class="col-6 border-end border-light">
                             <h5 class="text-muted mt-1 mb-2 fw-normal">Messages</h5>
                             <h2 class="mb-0 fw-bold">116</h2>
                         </div>
-                        <div class="col-4 border-end border-light">
+                        <div class="col-6 border-end border-light">
                             <h5 class="text-muted mt-1 mb-2 fw-normal">Likes</h5>
                             <h2 class="mb-0 fw-bold">87</h2>
                         </div>
-                        <!-- <div class="col-4">
-                            <h5 class="text-muted mt-1 mb-2 fw-normal">Friends</h5>
-                            <h2 class="mb-0 fw-bold">0</h2>
-                        </div> -->
                     </div>
                 </div>
               </div>
