@@ -3,7 +3,6 @@
 import Navbar from './components/UI/Navbar.vue';
 // Import Footer component
 import Footer from './components/UI/Footer.vue';
-// export app
 
 </script>
 

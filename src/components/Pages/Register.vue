@@ -1,8 +1,18 @@
 <script>
-// Export Register component
-export default {
+// Register component
+const Register = {
     name: 'Register',
+    data() {
+        return {
+            email: '',
+            password: '',
+        }
+    }
 }
+
+// Export Register
+export default Register
+
 </script>
 
 
@@ -13,18 +23,13 @@ export default {
             <h1 class="h3 mb-1 fw-normal text-center">Create a new account</h1>
             <!-- Email Adress -->
             <div class="form-floating">
-              <input type="email" class="form-control" id="email" placeholder="name@example.com">
-              <label for="email">Email address</label>
+                <input type="email" v-model="email" class="form-control" id="email" placeholder="name@example.com">
+                <label for="email">Email address</label>
             </div>
             <!-- Password -->
-            <div class="form-floating">
-              <input type="password" class="form-control" id="password" placeholder="Password">
-              <label for="password">Password</label>
-            </div>
-            <!-- Confirm Password -->
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
-              <label for="confirmPassword">Confirm Password</label>
+                <input type="password" v-model="password" class="form-control" id="password" placeholder="Password">
+                <label for="password">Password</label>
             </div>
             
             <!-- Submit Button -->

@@ -53,23 +53,24 @@ const publicPaths = ['/', '/login', '/register']
 
 // Router security status user before login
 router.beforeEach((to, from, next) => {
-    console.log(to)
-    console.log(from)
-
-    // If user want to access to login page or register page, landing page
     if (to.path !== publicPaths) {
         next()
     }
 })
 
 
-// Redirect to loggin if user not logged
+// Global security for all privage page after login & check if the token exist & valide
 router.beforeEach((to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
     const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin)
 
     // If user not logged or as a valide token > redirect to landing page
     if (requiresAuth && !isTokenValide()) {
+        next('/')
+    }
+
+    // Admin page only for admin > Check if the user is admin & redirect to landing page if not
+    if (requiresAdmin && !isAdmin()) {
         next('/')
     }
 
@@ -84,16 +85,10 @@ router.beforeEach((to, from, next) => {
         next('/home')
     }
 
-    // If user logged & as a valide token & is admin > redirect to admin page
-    else if (requiresAuth && requiresAdmin && !isTokenValide()) {
-        next('/admin')
-    }
-
     // User is logged & as a valide token > Access to the private page
     else {
         next()
     }
-    
 })
 
 
@@ -103,7 +98,11 @@ function isTokenValide() {
     return token === "Mon super token"
 }
 
-
+// Check if the user is admin
+function isAdmin() {
+    const token = localStorage.getItem('token')
+    return token === "Mon super token"
+}
 
 // Export router
 export { router }
