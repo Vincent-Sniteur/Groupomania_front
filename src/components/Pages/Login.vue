@@ -29,10 +29,9 @@ export default {
   data,
   methods : {
     checkLoginData,
-  },
+  }, // End methods
   watch: {
     email(val) {
-      console.log(val)
       this.email = val
       // Check if the email are empty
       if (val === "") {
@@ -44,7 +43,6 @@ export default {
       }
     },
     password(val) {
-      console.log(val)
       this.password = val
       // Check if the password are empty
       if (val === "") {
@@ -55,7 +53,7 @@ export default {
         isPasswordValid()
       }
     }
-  }
+  } // End watch
 }
 
 
@@ -65,14 +63,14 @@ export default {
 function isPasswordValid() {
   const errorLog = document.getElementById("login-error")
   errorLog.classList.add("alert", "alert-danger")
-  errorLog.innerHTML = "Password must be at least 8 characters"
+  errorLog.textContent = "Password must be at least 8 characters"
 
-  // Add timer to remove the error message
+  // // Add timer to remove the error message
   if (errorLog.classList.contains("alert", "alert-danger")) {
     setTimeout(() => {
       errorLog.classList.remove("alert", "alert-danger")
       errorLog.textContent = ""
-    }, 5000)
+    }, 4000)
   }
 }
 
