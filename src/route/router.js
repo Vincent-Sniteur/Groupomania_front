@@ -47,11 +47,11 @@ const router = createRouter({
 
 
 
-// Router Guard
+// Router Guard for security
 
 const publicPaths = ['/', '/login', '/register']
 
-// Router security status user before login
+// Router security status user before login with public path
 router.beforeEach((to, from, next) => {
     if (to.path !== publicPaths) {
         next()
@@ -70,6 +70,7 @@ router.beforeEach((to, from, next) => {
     }
 
     // Admin page only for admin > Check if the user is admin & redirect to landing page if not
+    // if user requiresAdmin = true = requiresAuth already true
     if (requiresAdmin && !isAdmin()) {
         next('/')
     }
@@ -94,15 +95,21 @@ router.beforeEach((to, from, next) => {
 
 //  Check if the token exist & valide 
 function isTokenValide() {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token') // TODO : Add backend check with promise
     return token === "Mon super token"
 }
 
 // Check if the user is admin
 function isAdmin() {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token') // TODO : Add backend check with promise
     return token === "Mon super token"
 }
+
+// Alert error
+function alertError() {
+    alert('Vous n\'avez pas accès à cette page')
+}
+
 
 // Export router
 export { router }

@@ -54,7 +54,7 @@ export default {
       }
     }
   } // End watch
-}
+} // End export
 
 
 // ERROR FORM MESSAGE
