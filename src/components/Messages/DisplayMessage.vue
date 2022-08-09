@@ -1,8 +1,11 @@
 <script>
+// Import local storage information
+const user = JSON.parse(localStorage.getItem('user'))
+
 export default {
     name: "DisplayMessage",
     computed: {
-        messages() {
+        getMessages() {
             return this.$store.getters.messages
         }
     }

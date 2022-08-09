@@ -1,21 +1,36 @@
 <script>
+
+
+
 // Export Navbar component
 export default {
     name: 'Navbar',
     methods: {
-        logout,
-    },
+        // Function logout for logout user - clean localStorage & store
+        logout() {
+            localStorage.removeItem('token')
+            localStorage.removeItem('userId')
+            localStorage.removeItem("user")
+            this.$store.commit('setToken', null)
+            this.$store.commit('setUserId', null)
+            this.$router.push('/')
+        },
+
+        // TODO : Function for check if user is logged
+        isUserOnline() {
+            if (localStorage.getItem('user')) {
+                return false
+            } else {
+                return true
+            }
+        },
+    }
 }
 
 
-function logout() {
-    localStorage.removeItem('token')
-    localStorage.removeItem('userId')
-    localStorage.removeItem('expirationDate')
-    this.$store.commit('setToken', null)
-    this.$store.commit('setUserId', null)
-    this.$router.push('/login')
-}
+
+
+
 </script>
 
 
@@ -36,25 +51,37 @@ function logout() {
             </ul>
             <!-- Auth Navbar -->
             <div class="text-end">
-                <!-- If User logged > Add d-none to login & register Btn -->
-                <!-- If User not logged > Add d-none to Disconnect Btn -->
+
                 <!-- Login Btn -->
                 <router-link to="/login">
-                    <button id="btn-login" type="button" class="btn btn-outline-light me-2 rounded-pill">Login</button>
+                    <button v-if="isUserOnline()"
+                        @click="" 
+                        id="btn-login" 
+                        type="button" 
+                        class="btn btn-outline-light me-2 rounded-pill"
+                        >Login
+                    </button>
                 </router-link>
+
                 <!-- Register Btn -->
                 <router-link to="/register">
-                    <button id="btn-register" type="button" class="btn text-light bg-red rounded-pill">Register</button>
+                    <button v-if="isUserOnline()"
+                        id="btn-register" 
+                        type="button" 
+                        class="btn text-light bg-red rounded-pill"
+                        >Register
+                    </button>
                 </router-link>
 
                 <!-- Disconnect Btn -->
-                <button 
+                <button v-if="!isUserOnline()"
                     id="btn-disconnect" 
                     type="button" 
                     class="btn text-light bg-red rounded-pill"
                     :disabled="isUserLoggedIn"
                     @click.prevent="logout()"
-                    >Disconnect</button>
+                    >Disconnect
+                </button>
             </div>
         </div>
         </div>

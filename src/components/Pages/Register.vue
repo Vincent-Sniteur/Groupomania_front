@@ -62,14 +62,28 @@ function formUser(email, password) {
     .then((res) => {
       const token = res.token
       const userId = res.userId
-      console.log(res) // TODO
       localStorage.setItem("token", token)
       localStorage.setItem("userId", userId)
-
-      // TODO Store user
-      this.$store.dispatch("token", token)
-      this.$store.dispatch("userId", userId)
-      this.$store.dispatch("isAuth", true)
+      
+      // Send Store user
+      this.$store.dispatch("setToken", token)
+      this.$store.dispatch("setUserId", userId)
+      this.$store.dispatch("setEmail", res.email)
+      this.$store.dispatch("setUsername", res.username)
+      this.$store.dispatch("setRole", res.role)
+      this.$store.dispatch("setBio", res.bio)
+      this.$store.dispatch("setAvatar", res.avatar)
+      this.$store.dispatch("setLocation", res.location)
+      this.$store.dispatch("setNumberOfPosts", res.numberOfPosts)
+      this.$store.dispatch("setNumberOfLikes", res.numberOfLikes)
+      this.$store.dispatch("setNumberOfLikesReceived", res.numberOfLikesReceived)
+      this.$store.dispatch("setIsAdmin", res.isAdmin)
+      this.$store.dispatch("setIsBanned", res.isBanned)
+      this.$store.dispatch("setStatus", res.status)
+      this.$store.dispatch("setMessages", res.messages)
+      
+      // Stock in localStorage all store information
+      localStorage.setItem("user", JSON.stringify(this.$store.state))
 
       let tokenInCache
       while (tokenInCache == null) {
@@ -77,7 +91,7 @@ function formUser(email, password) {
       }
 
       sucessRegister()
-      // Redirect to home page after 5 seconds
+      // Redirect to home page after 3 seconds
       setTimeout(() => {
         this.$router.push("/home")
       }, 3000)
