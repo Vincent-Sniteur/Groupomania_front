@@ -2,9 +2,20 @@
 // Export Navbar component
 export default {
     name: 'Navbar',
-    // ...
+    methods: {
+        logout,
+    },
 }
 
+
+function logout() {
+    localStorage.removeItem('token')
+    localStorage.removeItem('userId')
+    localStorage.removeItem('expirationDate')
+    this.$store.commit('setToken', null)
+    this.$store.commit('setUserId', null)
+    this.$router.push('/login')
+}
 </script>
 
 
@@ -37,7 +48,13 @@ export default {
                 </router-link>
 
                 <!-- Disconnect Btn -->
-                <button id="btn-disconnect" type="button" class="btn text-light bg-red rounded-pill">Disconnect</button>
+                <button 
+                    id="btn-disconnect" 
+                    type="button" 
+                    class="btn text-light bg-red rounded-pill"
+                    :disabled="isUserLoggedIn"
+                    @click.prevent="logout()"
+                    >Disconnect</button>
             </div>
         </div>
         </div>

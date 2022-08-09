@@ -76,14 +76,24 @@ function formUser(email, password) {
       while (tokenInCache == null) {
         tokenInCache = localStorage.getItem("token")
       }
-      this.$router.push("/home")
+
+      sucessLogin()
+      // Redirect to home page after 5 seconds
+      setTimeout(() => {
+        this.$router.push("/home")
+      }, 3000)
     })
     .catch((err) => {
       isFormIncorrect()
     })
 }
 
-
+// Sucess message for Login
+function sucessLogin() {
+  const errorLog = document.getElementById("login-error")
+  errorLog.classList.add("alert", "alert-success")
+  errorLog.textContent = "You are connected ! You will be redirected in 3 seconds."
+}
 
 // // ERROR FORM MESSAGE
 
@@ -160,7 +170,7 @@ function isFormIncorrect() {
               id="login-submit-btn" 
               class="w-100 btn btn-lg bg-red" 
               type="submit"
-              :disabled="email && password == '' /*|| email && password == ''*/"
+              :disabled="email && password == ''"
               @click.prevent="() => formUser(this.email, this.password)"
               >Sign in
             </button>

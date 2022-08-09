@@ -1,59 +1,102 @@
 <script>
-// Data component 
+const { VITE_SERVER_URL, VITE_SERVER_PORT } = import.meta.env
+const fetchURL = 'http://' + VITE_SERVER_URL + ':' + VITE_SERVER_PORT + '/'
+
+// Data component
 const data = () => {
     return {
-        email: 'Nothing',
-        password: 'here',
+      email: "",
+      password: "",
     }
 }
 
-function checkRegisterData() {
-    // Check if the email & password are correct or will return errorFormMessage
-  isPasswordValid()
-  isFormEmpty()
-  isFormIncorrect()
-}
-
-
-
-
-// Export Register
+// Export Register component
 export default {
   name: 'Register',
   data,
-  methods : {
-    checkRegisterData,
-  }, // End methods
+
+  // Methods for Register
+  methods: {
+    formUser,
+  },
+
+  // Watch data put in form
   watch: {
-    email(val) {
-      this.email = val
-      // Check if the email are empty
-      if (val === "") {
+    email: function () {
+      // Check email format with regex
+      if (this.email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)) {
+        return true
+      } else {
         isFormEmpty()
-      }
-      // Check if the email are correct by regex
-      if (!val.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
-        isFormIncorrect()
       }
     },
-    password(val) {
-      this.password = val
-      // Check if the password are empty
-      if (val === "") {
-        isFormEmpty()
-      }
-      // Check if the password are under 8 characters
-      if (val.length < 8) {
+    password: function () {
+      // Check password format length
+      if (this.password.length >= 8) {
+        return true
+      } else {
         isPasswordValid()
       }
-    }
-  } // End watch
-} // End export
+    },
+  },
+}
 
-// TODO VOIR POUR IMPORT DE LOGIN
-// ERROR FORM MESSAGE
+// Function formUser for register user with email and password
+function formUser(email, password) {
+  const authOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email, password })
+  }
+  fetch(fetchURL + "auth/register", authOptions)
+    .then((res) => {
+      if (res.ok) return res.json()
+      res.text().then((err) => {
+        const { error } = JSON.parse(err)
+        this.error = error
+        throw new Error(error)
+      })
+    })
+    .then((res) => {
+      const token = res.token
+      const userId = res.userId
+      console.log(res) // TODO
+      localStorage.setItem("token", token)
+      localStorage.setItem("userId", userId)
 
-// Error message if password length is less than 8 characters
+      // TODO Store user
+      this.$store.dispatch("token", token)
+      this.$store.dispatch("userId", userId)
+      this.$store.dispatch("isAuth", true)
+
+      let tokenInCache
+      while (tokenInCache == null) {
+        tokenInCache = localStorage.getItem("token")
+      }
+
+      sucessRegister()
+      // Redirect to home page after 5 seconds
+      setTimeout(() => {
+        this.$router.push("/home")
+      }, 3000)
+    })
+    .catch((err) => {
+      isFormIncorrect()
+    })
+}
+
+// Sucess message for register
+function sucessRegister() {
+  const errorLog = document.getElementById("login-error")
+  errorLog.classList.add("alert", "alert-success")
+  errorLog.textContent = "Register complete ! You will be redirected to home page in 3 seconds."
+}
+
+// // ERROR FORM MESSAGE
+
+// // Error message if password length is less than 8 characters
 function isPasswordValid() {
   const errorLog = document.getElementById("login-error")
   errorLog.classList.add("alert", "alert-danger")
@@ -64,11 +107,11 @@ function isPasswordValid() {
     setTimeout(() => {
       errorLog.classList.remove("alert", "alert-danger")
       errorLog.textContent = ""
-    }, 4000)
+    }, 5000)
   }
 }
 
-// Error message if the email or password are empty
+// // Error message if the email or password are empty or incorrect
 function isFormEmpty() {
   const errorLog = document.getElementById("login-error")
   errorLog.classList.add("alert", "alert-danger")
@@ -79,24 +122,15 @@ function isFormEmpty() {
     setTimeout(() => {
       errorLog.classList.remove("alert", "alert-danger")
       errorLog.textContent = ""
-    }, 3000)
+    }, 5000)
   }
 }
 
-// Error connection message if the email & password are incorrect or empty
+// // Error if the email or password are incorrect or not found in the database
 function isFormIncorrect() {
-  // Error message
   const errorLog = document.getElementById("login-error")
   errorLog.classList.add("alert", "alert-danger")
   errorLog.textContent = "Email or password incorrect"
-
-  // Add timer to remove the error message
-  if (errorLog.classList.contains("alert", "alert-danger")) {
-    setTimeout(() => {
-      errorLog.classList.remove("alert", "alert-danger")
-      errorLog.textContent = ""
-    }, 3000)
-  }
 }
 </script>
 
@@ -114,7 +148,8 @@ function isFormIncorrect() {
                   class="form-control" 
                   id="email" 
                   placeholder="name@example.com"
-                  required="required">
+                  required="required"
+                  @click="errorMessage = ''">
                 <label for="email">Email address</label>
             </div>
             <!-- Password -->
@@ -124,15 +159,22 @@ function isFormIncorrect() {
                   v-model="password" 
                   class="form-control" 
                   id="password" 
-                  placeholder="Password"
+                  placeholder="Password" 
                   required="required">
                 <label for="password">Password</label>
             </div>
             
             <!-- Submit Button -->
-            <button class="w-100 btn btn-lg bg-red" type="submit" @click.prevent="checkRegisterData">Register</button>
+            <button 
+              id="register-submit-btn" 
+              class="w-100 btn btn-lg bg-red" 
+              type="submit"
+              :disabled="email && password == '' || password.length < 8 || email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/) == null"
+              @click.prevent="() => formUser(this.email, this.password)"
+              >Register
+            </button>
 
-            <p id="login-error"></p>
+            <p id="login-error" class="alert"></p>
         </form>
     </main>
 </template>
