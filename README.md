@@ -1,6 +1,13 @@
-# Groupomania
+<div align="center">
+
+  # Groupomania
 
 Frontend P7 in construction
+
+
+
+</div>
+
 
 * Installation : `npm install`
 
@@ -8,7 +15,7 @@ Frontend P7 in construction
 * Start dev server : `npm run dev`
 * Start build : `npm run build`
 
-* Host server : `http://127.0.0.1:5173/`
+* LocalHost server : `http://127.0.0.1:5173/`
 
 ## Backend
 
@@ -23,6 +30,8 @@ Frontend P7 in construction
 - vue
 
 - vue-router
+
+- axios
 
 
 ## Dev Dependencies

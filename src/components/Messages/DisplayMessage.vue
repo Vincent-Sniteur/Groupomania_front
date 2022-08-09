@@ -1,7 +1,11 @@
 <script>
 export default {
     name: "DisplayMessage",
-    // ...
+    computed: {
+        messages() {
+            return this.$store.getters.messages
+        }
+    }
 }
 
 // add function if heart is clicked then toggle class is-active

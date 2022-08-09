@@ -15,6 +15,7 @@ import Contact from '../components/Pages/Contact.vue' // Import Contact
 
 // Import router fonction
 import { createRouter, createWebHistory } from 'vue-router'
+import store from '../store'
 
 
 // Router
@@ -71,9 +72,9 @@ router.beforeEach((to, from, next) => {
 
     // Admin page only for admin > Check if the user is admin & redirect to landing page if not
     // if user requiresAdmin = true = requiresAuth already true
-    if (requiresAdmin && !isAdmin()) {
-        next('/')
-    }
+    // if (requiresAdmin && !isAdmin()) {
+    //     next('/admin')
+    // }
 
     // if user already logged, redirect to home
     if (to.path === '/login' && isTokenValide()) {
@@ -93,21 +94,22 @@ router.beforeEach((to, from, next) => {
 })
 
 
-//  Check if the token exist & valide 
-function isTokenValide() {
-    const token = localStorage.getItem('token') // TODO : Add backend check with promise
-    return token === "Mon super token"
+// TODO Check if the token exist & valide with the server (token exist & not expired)
+function isTokenValide(state) {
+    const token = localStorage.getItem('token')
+    const userId = localStorage.getItem('userId')
+
+    if (token && userId) {
+        return true
+    } else {
+        return false
+    }
 }
 
-// Check if the user is admin
-function isAdmin() {
-    const token = localStorage.getItem('token') // TODO : Add backend check with promise
-    return token === "Mon super token"
-}
 
 // Alert error
 function alertError() {
-    alert('Vous n\'avez pas accès à cette page')
+    alert('Une erreur est survenue, veuillez vous reconnecter')
 }
 
 
