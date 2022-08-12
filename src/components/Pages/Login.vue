@@ -1,4 +1,6 @@
 <script>
+import store from '../../store'
+
 const { VITE_SERVER_URL, VITE_SERVER_PORT } = import.meta.env
 const fetchURL = 'http://' + VITE_SERVER_URL + ':' + VITE_SERVER_PORT + '/'
 
@@ -82,9 +84,8 @@ function formUser(email, password) {
       this.$store.dispatch("setIsBanned", res.isBanned)
       this.$store.dispatch("setStatus", res.status)
       this.$store.dispatch("setMessages", res.messages)
+      console.log(store.state)
       
-      // Stock in localStorage all store information
-      localStorage.setItem("user", JSON.stringify(this.$store.state))
 
       let tokenInCache
       while (tokenInCache == null) {

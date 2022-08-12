@@ -18,11 +18,11 @@ export default {
 
         // TODO : Function for check if user is logged
         isUserOnline() {
-            if (localStorage.getItem('user')) {
-                return false
-            } else {
-                return true
-            }
+            // if (localStorage.getItem('user')) {
+            //     return false
+            // } else {
+            //     return true
+            // }
         },
     }
 }
@@ -54,7 +54,7 @@ export default {
 
                 <!-- Login Btn -->
                 <router-link to="/login">
-                    <button v-if="isUserOnline()"
+                    <button v-if="!isUserOnline()"
                         @click="" 
                         id="btn-login" 
                         type="button" 
@@ -65,7 +65,7 @@ export default {
 
                 <!-- Register Btn -->
                 <router-link to="/register">
-                    <button v-if="isUserOnline()"
+                    <button v-if="!isUserOnline()"
                         id="btn-register" 
                         type="button" 
                         class="btn text-light bg-red rounded-pill"

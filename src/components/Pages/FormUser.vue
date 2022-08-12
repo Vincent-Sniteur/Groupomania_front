@@ -11,27 +11,7 @@ export default {
           <div class="form-row">
             <div class="form-item">
               <label for="user-name" class="rl-label">Full Name</label>
-              <input type="text" id="user-name" name="name" placeholder="Your name... ( Require )" required="required" class="require">
-            </div>
-
-            <div class="form-item">
-              <label for="user-localisation" class="rl-label">Localisation</label>
-              <input type="text" id="user-localisation" name="localisation" placeholder="Your Localisation...">
-            </div>
-
-            <div class="form-item">
-              <label for="user-website" class="rl-label">Website</label>
-              <input type="text" id="user-website" name="website" placeholder="Your Website...">
-            </div>
-
-            <div class="form-item">
-              <label for="user-github" class="rl-label">Your Github</label>
-              <input type="text" id="user-github" name="github" placeholder="Your Github Username...">
-            </div>
-
-            <div class="form-item">
-              <label for="user-twitter" class="rl-label">Your Twitter</label>
-              <input type="text" id="user-twitter" name="twitter" placeholder="Enter your @...">
+              <input type="text" id="user-name" name="name" placeholder="Your name..." maxlength="30">
             </div>
           </div>
 
@@ -39,19 +19,23 @@ export default {
             <!-- Description User -->
             <div class="form-item">
               <label for="user-description" class="rl-label">Description</label>
-              <textarea name="description" id="user-description" placeholder="Added a short description of yourself... ( Require )"></textarea>
+              <textarea name="description" id="user-description" placeholder="Added a short description of yourself..." maxlength="100"></textarea>
             </div>
 
             <!-- User Avatar -->
             <div class="form-item position-absolute">
                 <label for="topic_description" class="rl-label">Avatar</label>
-                <input id="user-avatar" type="file">
-                <label for="user-avatar" class="rl-label button rounded-pill">Edit image</label>
-                <p>Size 300x300</p>
+                
 
                 <!-- Show Avatar -->
                 <div class="show-avatar">
-                  <img id="show-user-avatar" src="https://via.placeholder.com/300" alt="">
+                  <img id="show-user-avatar" src="https://via.placeholder.com/300" alt="User Avatar">
+
+                  <!-- Button to upload image -->
+                  <input id="new-user-avatar" type="file">
+                  <label for="new-user-avatar">
+                    <i class="fa fa-upload"></i>
+                  </label>
                 </div>
             </div>
           </div>
@@ -61,6 +45,12 @@ export default {
 
           <!-- BUTTONS -->
           <div class="form-actions right">
+
+            <!-- Cancel Button -->
+            <router-link to="/home">
+              <button type="button" id="cancel-btn" class="button rounded-pill">Cancel</button>
+            </router-link>
+
             <!-- Confirm Btn -->
             <button type="submit" id="submit-profil" class="button blue ms-5 rounded-pill">Confirm</button>
           </div>
@@ -93,14 +83,8 @@ input[type="text"] {
     color: #363636;
     font-size: .8125em;
 }
-.require::-webkit-input-placeholder {
-    color: #FD2D01;
-}
 input[type=file] {
     display: none;
-}
-label+input {
-    margin-top: 10px;
 }
 .form-row {
     margin-top: 20px;
@@ -157,12 +141,30 @@ textarea {
 }
 .show-avatar {
     position: relative;
-    left: 100%;
-    top: -130px;
+    left: 5%;
+    top: 0px;
 }
 .show-avatar img{
     width: 150px;
     height: 150px;
     border-radius: 100px;
 }
+.show-avatar label {
+    position: absolute;
+    top: 70%;
+    left: 65%;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #1c95f3;
+    color: #fff;
+    font-size: 1.5em;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+}
+.show-avatar label:hover {
+    background-color: #00c400;
+}
+
 </style>

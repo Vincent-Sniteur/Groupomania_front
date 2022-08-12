@@ -17,8 +17,8 @@ export default {
 
 
         <!-- View profil-->
-        <router-link to="/profil">
-            <button class="btn btn-dark rounded-pill">Profil Page</button>
+        <router-link to="/edit-profil">
+            <button class="btn btn-dark rounded-pill">Edit Profil</button>
         </router-link>
         
     </div>

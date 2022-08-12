@@ -76,13 +76,8 @@ const store = createStore({
     setIsBanned(state, IsBanned) {
       state.IsBanned = IsBanned
     },
-    setStatus(state, Status, isUserAuth) {
+    setStatus(state, Status) {
       state.Status = Status
-      if (isUserAuth === true) {
-        state.Status = 'Online'
-      } else {
-        state.Status = 'Offline'
-      }
     },
     setMessages(state, Messages) {
       state.Messages = Messages
@@ -130,8 +125,8 @@ const store = createStore({
     setIsBanned({ commit }, IsBanned) {
       commit("setIsBanned", IsBanned)
     },
-    setStatus({ commit }, Status) {
-      commit("setStatus", Status)
+    setStatus({ commit }) {
+      commit("setStatus", "Online") // TODO change to "Online" when user is online
     },
     setMessages({ commit }, Messages) {
       commit("setMessages", Messages)
