@@ -85,6 +85,9 @@ function formUser(email, password) {
       this.$store.dispatch("setStatus", res.status)
       this.$store.dispatch("setMessages", res.messages)
       console.log(store.state)
+
+      // Store user in localStorage
+      localStorage.setItem("user", JSON.stringify(this.$store.state))
       
 
       let tokenInCache
