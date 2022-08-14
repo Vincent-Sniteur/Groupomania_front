@@ -31,8 +31,6 @@ Frontend P7 in construction
 
 - vue-router
 
-- axios
-
 
 ## Dev Dependencies
 
