@@ -2,6 +2,8 @@
 
 
 
+
+
 // Export Navbar component
 export default {
     name: 'Navbar',
@@ -15,19 +17,16 @@ export default {
             this.$store.commit('setUserId', null)
             this.$router.push('/')
         },
-
-        // TODO : Function for check if user is logged
-        isUserOnline() {
-            // if (localStorage.getItem('user')) {
-            //     return false
-            // } else {
-            //     return true
-            // }
+        // Verify if user is logged for display navbar btn or not
+        isUserLoggedIn() {
+            if (localStorage.getItem('token') && localStorage.getItem('userId') && localStorage.getItem('user') !== null) {
+                return true
+            } else {
+                return false
+            }
         },
     }
 }
-
-
 
 
 
@@ -54,7 +53,7 @@ export default {
 
                 <!-- Login Btn -->
                 <router-link to="/login">
-                    <button v-if="!isUserOnline()"
+                    <button v-if="!isUserLoggedIn()"
                         @click="" 
                         id="btn-login" 
                         type="button" 
@@ -65,7 +64,7 @@ export default {
 
                 <!-- Register Btn -->
                 <router-link to="/register">
-                    <button v-if="!isUserOnline()"
+                    <button v-if="!isUserLoggedIn()"
                         id="btn-register" 
                         type="button" 
                         class="btn text-light bg-red rounded-pill"
@@ -74,11 +73,10 @@ export default {
                 </router-link>
 
                 <!-- Disconnect Btn -->
-                <button v-if="!isUserOnline()"
+                <button v-if="isUserLoggedIn()"
                     id="btn-disconnect" 
                     type="button" 
                     class="btn text-light bg-red rounded-pill"
-                    :disabled="isUserLoggedIn"
                     @click.prevent="logout()"
                     >Disconnect
                 </button>
