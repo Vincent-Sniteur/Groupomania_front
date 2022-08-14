@@ -1,9 +1,4 @@
 <script>
-
-
-
-
-
 // Export Navbar component
 export default {
     name: 'Navbar',
@@ -27,8 +22,6 @@ export default {
         },
     }
 }
-
-
 
 </script>
 

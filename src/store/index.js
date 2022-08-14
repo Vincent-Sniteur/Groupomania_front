@@ -1,4 +1,4 @@
-
+// Import VUEX
 import { createStore } from 'vuex'
 
 // Create a new store instance.
@@ -25,8 +25,28 @@ const store = createStore({
   // Getters are functions that return a value from the store state.
   // They are similar to computed properties in Vue components.
   getters: {
-    user(state) {
-      return state.user
+    // Getters all the user's data
+    getUser: (state) => {
+      return {
+        UserId: state.UserId,
+        Token: state.Token,
+        Email: state.Email,
+        Username: state.Username,
+        Role: state.Role,
+        Bio: state.Bio,
+        Avatar: state.Avatar,
+        Location: state.Location,
+        NumberOfPosts: state.NumberOfPosts,
+        NumberOfLikes: state.NumberOfLikes,
+        NumberOfLikesReceived: state.NumberOfLikesReceived,
+        IsAdmin: state.IsAdmin,
+        IsBanned: state.IsBanned,
+        Status: state.Status,
+      }
+    },
+    // Getters all messages
+    getMessages: (state) => {
+      return state.Messages
     },
   },
 
@@ -86,53 +106,27 @@ const store = createStore({
 
   // Put to the store the user data received from the backend
   actions: {
-    setToken({ commit }, Token) {
-      commit("setToken", Token)
-    },
-    setUserId({ commit }, UserId) {
-      commit("setUserId", UserId)
-    },
-    setEmail({ commit }, Email) {
-      commit("setEmail", Email)
-    },
-    setUsername({ commit }, Username) {
-      commit("setUsername", Username)
-    },
-    setRole({ commit }, Role) {
-      commit("setRole", Role)
-    },
-    setBio({ commit }, Bio) {
-      commit("setBio", Bio)
-    },
-    setAvatar({ commit }, Avatar) {
-      commit("setAvatar", Avatar)
-    },
-    setLocation({ commit }, Location) {
-      commit("setLocation", Location)
-    },
-    setNumberOfPosts({ commit }, NumberOfPosts) {
-      commit("setNumberOfPosts", NumberOfPosts)
-    },
-    setNumberOfLikes({ commit }, NumberOfLikes) {
-      commit("setNumberOfLikes", NumberOfLikes)
-    },
-    setNumberOfLikesReceived({ commit }, NumberOfLikesReceived) {
-      commit("setNumberOfLikesReceived", NumberOfLikesReceived)
-    },
-    setIsAdmin({ commit }, IsAdmin) {
-      commit("setIsAdmin", IsAdmin)
-    },
-    setIsBanned({ commit }, IsBanned) {
-      commit("setIsBanned", IsBanned)
-    },
-    setStatus({ commit }) {
-      commit("setStatus", "Online") // TODO change to "Online" when user is online
-    },
-    setMessages({ commit }, Messages) {
-      commit("setMessages", Messages)
+    getUserInfos({ commit }, user) {
+      console.log(user);
+      commit('setStatus', "Online"); // TODO change to "Online" when user is online
+      commit('setToken', user.token);
+      commit('setUserId', user.userId);
+      commit('setEmail', user.email);
+      commit('setUsername', user.username);
+      commit('setRole', user.role);
+      commit('setBio', user.bio);
+      commit('setAvatar', user.avatar);
+      commit('setLocation', user.location);
+      commit('setNumberOfPosts', user.numberOfPosts);
+      commit('setNumberOfLikes', user.numberOfLikes);
+      commit('setNumberOfLikesReceived', user.numberOfLikesReceived);
+      commit('setIsAdmin', user.isAdmin);
+      commit('setIsBanned', user.isBanned);
+      commit('setMessages', user.messages);
     },
   },
   modules: {},
 })
 
+// Export the store
 export default store

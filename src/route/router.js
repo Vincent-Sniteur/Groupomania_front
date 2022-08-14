@@ -28,13 +28,13 @@ const router = createRouter({
     ]
 })
 // User page if logged
-// /home, /profil, /new-profil, /edit-profil, admin
+// /home
 
 // User page if not logged
 // /, /login, /register
 
 // if User logged and admin
-// /admin
+// #
 
 // All time page logged or not
 // /contact, /about
@@ -57,27 +57,20 @@ router.beforeEach((to, from, next) => {
 // Global security for all privage page after login & check if the token exist & valide
 router.beforeEach((to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-    const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin)
 
     // If user not logged or as a valide token > redirect to landing page
-    if (requiresAuth && !isTokenValide()) {
+    if (requiresAuth && !isTokenValid()) {
         next('/')
     }
 
-    // Admin page only for admin > Check if the user is admin & redirect to landing page if not
-    // if user requiresAdmin = true = requiresAuth already true
-    // if (requiresAdmin && !isAdmin()) {
-    //     next('/admin')
-    // }
-
     // if user already logged, redirect to home
-    if (to.path === '/login' && isTokenValide()) {
+    if (to.path === '/login' && isTokenValid()) {
         next('/home')
     }
-    if (to.path === '/register' && isTokenValide()) {
+    if (to.path === '/register' && isTokenValid()) {
         next('/home')
     }
-    if (to.path === '/' && isTokenValide()) {
+    if (to.path === '/' && isTokenValid()) {
         next('/home')
     }
 
@@ -89,7 +82,7 @@ router.beforeEach((to, from, next) => {
 
 
 // TODO Check if the token exist & valide with the server (token exist & not expired)
-function isTokenValide(state) {
+function isTokenValid(state) {
     const token = localStorage.getItem('token')
     const userId = localStorage.getItem('userId')
     const storeToken = store.state.token

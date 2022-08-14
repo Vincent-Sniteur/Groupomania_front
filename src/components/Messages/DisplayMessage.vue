@@ -1,22 +1,47 @@
 <script>
-// Import local storage information
-const user = JSON.parse(localStorage.getItem('user'))
-
 export default {
     name: "DisplayMessage",
-    computed: {
-        getMessages() {
-            return this.$store.getters.messages
-        }
-    }
 }
 
+
+// return all messages in database & display
+// function getMessages() {
+//     fetch(fetchURL + "messages", {
+//         method: "GET",
+//         headers: {
+//             "Content-Type": "application/json",
+//             "Authorization": "Bearer " + user.token
+//         }
+//     })
+//         .then((res) => {
+//             if (res.ok) return res.json()
+//             res.text().then((err) => {
+//                 const { error } = JSON.parse(err)
+//                 this.error = error
+//                 throw new Error(error)
+//             })
+//         })
+//         .then((data) => {
+//             this.$store.commit('setMessages', data)
+//         })
+//         .catch((err) => {
+//             console.log(err)
+//         })
+// }
+
+
 // add function if heart is clicked then toggle class is-active
-// $(function() {
-//   $(".heart").on("click", function() {
-//     $(this).toggleClass("is-active");
-//   });
-// });
+function heartClick() {
+    const heart = document.querySelector('#heart')
+    heart.addEventListener('click', () => {
+        if (heart.classList.contains('is-active')) {
+            heart.classList.remove('is-active')
+        } else {
+            heart.classList.add('is-active')
+        }
+    })
+}
+
 </script>
 
 
@@ -28,10 +53,8 @@ export default {
         <img id="user-avatar" class="mr-3 rounded-circle img-flex" src="https://picsum.photos/50/50" alt="User Avatar" width="50" height="50">
 
         <!-- Username -->
-        <!-- TODO Add click to name of the user redirect to user profil via backend -->
-        <router-link to="/profil${user.id}">
-            <h5 id="username" class="post-comment-username card-title">${user.name}</h5>
-        </router-link>
+        <!-- Username -->
+        <h5 id="username" class="post-comment-username card-title">Utilisateur 1</h5>
 
 
         <!-- Attached file -->
@@ -57,7 +80,7 @@ export default {
         <div class="post-option mb-1">
             <!-- Heart -->
             <div class="placement">
-                <div class="heart is-active"></div>
+                <div id="heart" class="heart" @click.prevent="heartClick()"></div>
             </div>
         </div>
     </div>
@@ -94,7 +117,7 @@ export default {
         <div class="post-option mb-1">
             <!-- Heart -->
             <div class="placement">
-                <div class="heart is-active"></div>
+                <div id="heart" class="heart is-active"></div>
             </div>
         </div>
     </div>
