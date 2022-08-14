@@ -19,7 +19,7 @@ export default {
 
   // Methods for Login
   methods: {
-    formUser,
+    formUserValidity,
   },
 
   // Watch data put in form
@@ -37,7 +37,7 @@ export default {
       if (this.password.length >= 8) {
         return true
       } else {
-        isPasswordValid()
+        passwordNotValid()
       }
     },
   },
@@ -45,7 +45,7 @@ export default {
 
 // Function formUser for login user with email and password in database
 // Get token & userId in response and save in localStorage & store
-function formUser(email, password) {
+function formUserValidity(email, password) {
   const authOptions = {
     method: "POST",
     headers: {
@@ -53,55 +53,55 @@ function formUser(email, password) {
     },
     body: JSON.stringify({ email, password })
   }
+  // Fetch login
   fetch(fetchURL + "auth/login", authOptions)
+    // Return response in json
     .then((res) => {
       if (res.ok) return res.json()
-      res.text().then((err) => {
-        const { error } = JSON.parse(err)
-        this.error = error
-        throw new Error(error)
-      })
     })
+    // Save token & userId in localStorage & store user in store
     .then((res) => {
-      const token = res.token
-      const userId = res.userId
-      localStorage.setItem("token", token)
-      localStorage.setItem("userId", userId)
+      // Save token & userId in localStorage
+      localStorage.setItem("token", res.token)
+      localStorage.setItem("userId", res.userId)
+      
+      // Send user information in store
+      store.dispatch('getUserInfos', {
+        userId: res.userId,
+        token: res.token,
+        email: res.email,
+        username: res.username,
+        role: res.role,
+        bio: res.bio,
+        avatar: res.avatar,
+        location: res.location,
+        numberOfPosts: res.numberOfPosts,
+        numberOfLikes: res.numberOfLikes,
+        numberOfLikesReceived: res.numberOfLikesReceived,
+        isAdmin: res.isAdmin,
+        isBanned: res.isBanned,
+        status: res.status,
+        messages: res.messages,
+      })
 
-      // Send Store user
-      this.$store.dispatch("setToken", token)
-      this.$store.dispatch("setUserId", userId)
-      this.$store.dispatch("setEmail", res.email)
-      this.$store.dispatch("setUsername", res.username)
-      this.$store.dispatch("setRole", res.role)
-      this.$store.dispatch("setBio", res.bio)
-      this.$store.dispatch("setAvatar", res.avatar)
-      this.$store.dispatch("setLocation", res.location)
-      this.$store.dispatch("setNumberOfPosts", res.numberOfPosts)
-      this.$store.dispatch("setNumberOfLikes", res.numberOfLikes)
-      this.$store.dispatch("setNumberOfLikesReceived", res.numberOfLikesReceived)
-      this.$store.dispatch("setIsAdmin", res.isAdmin)
-      this.$store.dispatch("setIsBanned", res.isBanned)
-      this.$store.dispatch("setStatus", res.status)
-      this.$store.dispatch("setMessages", res.messages)
-      console.log(store.state)
-
-      // Store user in localStorage
+      // // Store user in localStorage
       localStorage.setItem("user", JSON.stringify(this.$store.state))
       
-
+      // Verify if token is in localStorage
       let tokenInCache
       while (tokenInCache == null) {
         tokenInCache = localStorage.getItem("token")
       }
 
+      // Success message
       sucessLogin()
-      // Redirect to home page after 3 seconds
+      // Redirect to home page after 3 seconds if login success
       setTimeout(() => {
         this.$router.push("/home")
       }, 3000)
     })
-    .catch((err) => {
+    // Catch error if login failed and display error message
+    .catch(() => {
       isFormIncorrect()
     })
 }
@@ -113,39 +113,23 @@ function sucessLogin() {
   errorLog.textContent = "You are connected ! You will be redirected in 3 seconds."
 }
 
-// // ERROR FORM MESSAGE
+// ERROR FORM MESSAGE
 
-// // Error message if password length is less than 8 characters
-function isPasswordValid() {
+// Error message if password length is less than 8 characters
+function passwordNotValid() {
   const errorLog = document.getElementById("login-error")
   errorLog.classList.add("alert", "alert-danger")
   errorLog.textContent = "Password must be at least 8 characters"
-
-  // // Add timer to remove the error message
-  if (errorLog.classList.contains("alert", "alert-danger")) {
-    setTimeout(() => {
-      errorLog.classList.remove("alert", "alert-danger")
-      errorLog.textContent = ""
-    }, 5000)
-  }
 }
 
-// // Error message if the email or password are empty or incorrect
+// Error message if the email or password are empty or incorrect
 function isFormEmpty() {
   const errorLog = document.getElementById("login-error")
   errorLog.classList.add("alert", "alert-danger")
   errorLog.textContent = "Email or password are required"
-
-  // Add timer to remove the error message
-  if (errorLog.classList.contains("alert", "alert-danger")) {
-    setTimeout(() => {
-      errorLog.classList.remove("alert", "alert-danger")
-      errorLog.textContent = ""
-    }, 5000)
-  }
 }
 
-// // Error if the email or password are incorrect or not found in the database
+// Error if the email or password are incorrect or not found in the database
 function isFormIncorrect() {
   const errorLog = document.getElementById("login-error")
   errorLog.classList.add("alert", "alert-danger")
@@ -189,7 +173,7 @@ function isFormIncorrect() {
               class="w-100 btn btn-lg bg-red" 
               type="submit"
               :disabled="email && password == ''"
-              @click.prevent="() => formUser(this.email, this.password)"
+              @click.prevent="() => formUserValidity(this.email, this.password)"
               >Sign in
             </button>
 
