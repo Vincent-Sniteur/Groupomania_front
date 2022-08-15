@@ -1,24 +1,18 @@
 <script>
+
 // Export Navbar component
 export default {
     name: 'Navbar',
     methods: {
         // Function logout for logout user - clean localStorage & store
         logout() {
-            localStorage.removeItem('token')
-            localStorage.removeItem('userId')
-            localStorage.removeItem("user")
-            this.$store.commit('setToken', null)
-            this.$store.commit('setUserId', null)
+            localStorage.clear()
+            this.$store.dispatch('logout')
             this.$router.push('/')
         },
         // Verify if user is logged for display navbar btn or not
         isUserLoggedIn() {
-            if (localStorage.getItem('token') && localStorage.getItem('userId') && localStorage.getItem('user') !== null) {
-                return true
-            } else {
-                return false
-            }
+            return this.$store.state.isUserAuth
         },
     }
 }

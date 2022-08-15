@@ -30,7 +30,7 @@ export default {
 // }
 
 
-// add function if heart is clicked then toggle class is-active
+// TODO : Add function if heart is clicked then toggle class is-active
 function heartClick() {
     const heart = document.querySelector('#heart')
     heart.addEventListener('click', () => {

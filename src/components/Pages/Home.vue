@@ -6,7 +6,12 @@ import HomeProfil from '../Users/HomeProfil.vue';
 // Export Home component
 export default {
     name: "Home",
-    components: { Profil: HomeProfil, DisplayMessage, CreateMessage, HomeProfil }
+    components: { Profil: HomeProfil, DisplayMessage, CreateMessage, HomeProfil },
+    mounted: function () {
+        if (!this.$store.state.isUserAuth) {
+            this.$router.push("/")
+        }
+    },
 }
 
 </script>

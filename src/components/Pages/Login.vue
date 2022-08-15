@@ -21,7 +21,6 @@ export default {
   methods: {
     formUserValidity,
   },
-
   // Watch data put in form
   watch: {
     email: function () {
@@ -64,28 +63,8 @@ function formUserValidity(email, password) {
       // Save token & userId in localStorage
       localStorage.setItem("token", res.token)
       localStorage.setItem("userId", res.userId)
+      localStorage.setItem("user", res)
       
-      // Send user information in store
-      store.dispatch('getUserInfos', {
-        userId: res.userId,
-        token: res.token,
-        email: res.email,
-        username: res.username,
-        role: res.role,
-        bio: res.bio,
-        avatar: res.avatar,
-        location: res.location,
-        numberOfPosts: res.numberOfPosts,
-        numberOfLikes: res.numberOfLikes,
-        numberOfLikesReceived: res.numberOfLikesReceived,
-        isAdmin: res.isAdmin,
-        isBanned: res.isBanned,
-        status: res.status,
-        messages: res.messages,
-      })
-
-      // // Store user in localStorage
-      localStorage.setItem("user", JSON.stringify(this.$store.state))
       
       // Verify if token is in localStorage
       let tokenInCache
@@ -93,24 +72,18 @@ function formUserValidity(email, password) {
         tokenInCache = localStorage.getItem("token")
       }
 
-      // Success message
-      sucessLogin()
-      // Redirect to home page after 3 seconds if login success
-      setTimeout(() => {
-        this.$router.push("/home")
-      }, 3000)
+      this.$router.push("/home")
+
+      // Send user information in store
+      store.dispatch('getUserInfos', {
+        user: res
+      })
+
     })
     // Catch error if login failed and display error message
     .catch(() => {
       isFormIncorrect()
     })
-}
-
-// Sucess message for Login
-function sucessLogin() {
-  const errorLog = document.getElementById("login-error")
-  errorLog.classList.add("alert", "alert-success")
-  errorLog.textContent = "You are connected ! You will be redirected in 3 seconds."
 }
 
 // ERROR FORM MESSAGE
