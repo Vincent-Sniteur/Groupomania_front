@@ -1,4 +1,5 @@
 <script>
+const user = JSON.parse(localStorage.getItem('user'));
 // Export
 export default {
     name: 'HomeProfil',
@@ -10,13 +11,15 @@ export default {
 <!-- Profil -->
 <div class="col-md-3 mb-2">
     <div class="content-center text-center porfile-content">
+        <!-- User avatar display via store -->
         <div class="photo-container">
-            <img id="user-profil-picture" src="{{this.$store.state.user.avatar}}" alt="User Avatar" width="100" height="100">
+            <img :src="this.$store.state.user.avatar" id="user-profil-picture" alt="User Avatar" width="100" height="100">
         </div>
-        <!-- Get username in store & display -->
+        <!-- Username display via store -->
         <h3 class="title" id="user-name">{{this.$store.state.user.username}}</h3>
-       
+        <!-- User bio display via store -->
         <p class="category" id="user-description">{{ this.$store.state.user.bio }}</p>
+        <!-- User status display via store -->
         <p class="bg-success" id="user-status">{{ this.$store.state.status }}</p>
 
 

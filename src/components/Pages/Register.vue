@@ -65,10 +65,6 @@ function formUserValidity(email, password) {
     })
     // Save token & userId in localStorage & store user in store
     .then((res) => {
-      if (res.ok) return res.json()
-    })
-    // Save token & userId in localStorage & store user in store
-    .then((res) => {
       // Save token & userId in localStorage
       localStorage.setItem("token", res.token)
       localStorage.setItem("userId", res.userId)
@@ -97,12 +93,6 @@ function formUserValidity(email, password) {
     })
 }
 
-// Sucess message for register
-function sucessRegister() {
-  const errorLog = document.getElementById("login-error")
-  errorLog.classList.add("alert", "alert-success")
-  errorLog.textContent = "Register complete ! You will be redirected to home page in 3 seconds."
-}
 
 // ERROR FORM MESSAGE
 
