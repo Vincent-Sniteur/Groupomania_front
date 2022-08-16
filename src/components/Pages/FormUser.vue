@@ -21,40 +21,58 @@ export default {
 }
 
 function formUpdateUser(username, bio, avatar) {
-  const authOptions = {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer " + localStorage.getItem("token")
-    },
-    body: JSON.stringify({ username, bio, avatar })
-  }
-  fetch(fetchURL + "auth/users/" + localStorage.getItem("userId"), authOptions)
-    // Return response in json
-    .then((res) => {
-      if (res.ok) return res.json()
-    })
-    // Save token & userId in localStorage & store user in store
-    .then((res) => {
-    // Save token & userId in localStorage
-      localStorage.setItem("userId", res.userId)
+    // If the user has not entered information in the form, stop the function
+    if (username == "" && bio == "" && avatar == "") {
+      return alert("Please fill in a field or use Cancel.")
+    }
+    // If the user hat not entered a new username, keep the old one
+    if (username == "") {
+      username = this.$store.state.user.username
+    }
+    // If the user hat not entered a new bio, keep the old one
+    if (bio == "") {
+      bio = this.$store.state.user.bio
+    }
+    // If the user hat not entered a new avatar, keep the old one
+    if (avatar == "") {
+      avatar = this.$store.state.user.avatar
+    }
 
-    // replace in user localstorage with new user data
-        const user = JSON.parse(localStorage.getItem("user"))
-        user.username = res.username
-        user.bio = res.bio
-        user.avatar = res.avatar
-        localStorage.setItem("user", JSON.stringify(user))
-      
-      // Send res in store user
-      this.$store.commit("setUser", res)
+    const authOptions = {
+        method: "PUT",
+        headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        body: JSON.stringify({ username, bio, avatar })
+    }
+    fetch(fetchURL + "auth/users/" + localStorage.getItem("userId"), authOptions)
+        // Return response in json
+        .then((res) => {
+            if (res.ok) return res.json()
+        })
+        // Save token & userId in localStorage & store user in store
+        .then((res) => {
+            // Save token & userId in localStorage
+            localStorage.setItem("userId", res.userId)
 
-      // Redirect to Home page
-      this.$router.push("/home")
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+            // Replace user localstorage with new user data
+                const user = JSON.parse(localStorage.getItem("user"))
+                user.username = res.username
+                user.bio = res.bio
+                user.avatar = res.avatar
+                localStorage.setItem("user", JSON.stringify(user))
+            
+            // Send res in store user
+            this.$store.commit("setUser", res)
+            alert("Votre profil a bien été mis à jour")
+
+            // Redirect to Home page
+            this.$router.push("/home")
+        })
+        .catch((error) => {
+            console.log(error)
+        })
 }
 
 
@@ -68,13 +86,12 @@ function formUpdateUser(username, bio, avatar) {
             <div class="form-item">
               <label for="username" class="rl-label">Full Name : {{this.$store.state.user.username}} </label>
               <input 
-                type="username"
+                type="text"
                 class="form-control" 
                 id="username"
-                maxlength="40" 
+                maxlength="20" 
                 placeholder="Add your name..."
-                v-model="username"
-                @click="errorMessage = ''">
+                v-model="username">
             </div>
           </div>
 
@@ -82,13 +99,12 @@ function formUpdateUser(username, bio, avatar) {
             <!-- Description User -->
             <div class="form-item">
               <label for="description" class="rl-label">Description : {{this.$store.state.user.bio}}</label>
-                <textarea
+                <input
                     type="text" 
                     v-model="bio"
                     id="bio" 
                     placeholder="Added a short bio of yourself..." 
-                    maxlength="100">
-                </textarea>
+                    maxlength="50">
             </div>
 
             <!-- User Avatar -->
@@ -125,9 +141,8 @@ function formUpdateUser(username, bio, avatar) {
               id="edit-user-submit" 
               class="button blue ms-5 rounded-pill"
               type="submit"
-              :disabled="username && bio == ''"
               @click.prevent="() => formUpdateUser(this.username, this.bio, this.avatar)">
-              >Sign in
+              Sign in
             </button>
           </div>
         </form>
@@ -169,16 +184,6 @@ input[type=file] {
     content: '';
     display: table;
     clear: both;
-}
-textarea {
-    min-height: 100px;
-    padding: 12px 20px;
-    border-radius: 24px;
-    width: 100%;
-    border: 1px solid #dbdbdb;
-    background-color: #fff;
-    color: #363636;
-    font-size: .8125em;
 }
 .form-actions {
     margin-top: 40px;
