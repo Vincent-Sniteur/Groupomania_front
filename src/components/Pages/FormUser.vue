@@ -3,6 +3,7 @@ export default {
     name: 'FormUser',
 }
 
+
 </script>
 
 <template>
@@ -11,7 +12,12 @@ export default {
           <div class="form-row">
             <div class="form-item">
               <label for="user-name" class="rl-label">Full Name</label>
-              <input type="text" id="user-name" name="name" placeholder="Your name..." maxlength="30">
+              <input 
+                type="text" 
+                id="user-name" 
+                name="name" 
+                maxlength="40"
+                v-model="this.$store.state.user.username">
             </div>
           </div>
 
@@ -19,7 +25,7 @@ export default {
             <!-- Description User -->
             <div class="form-item">
               <label for="user-description" class="rl-label">Description</label>
-              <textarea name="description" id="user-description" placeholder="Added a short description of yourself..." maxlength="100"></textarea>
+              <textarea name="description" id="user-description" placeholder="Added a short description of yourself..." maxlength="100">{{this.$store.state.user.bio}}</textarea>
             </div>
 
             <!-- User Avatar -->
@@ -29,7 +35,7 @@ export default {
 
                 <!-- Show Avatar -->
                 <div class="show-avatar">
-                  <img id="show-user-avatar" src="https://via.placeholder.com/300" alt="User Avatar">
+                  <img :src="this.$store.state.user.avatar" id="show-user-avatar" alt="User Avatar">
 
                   <!-- Button to upload image -->
                   <input id="new-user-avatar" type="file">
