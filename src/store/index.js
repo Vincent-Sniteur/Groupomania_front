@@ -39,7 +39,10 @@ const store = createStore({
       state.isUserAuth = false,
       state.token = null,
       state.status = "Offline"
-    }
+    },
+    setAvatar(state, avatar) {
+      state.user.avatar = avatar
+    },
 },
 
   // Put to the store the user data received from the backend

@@ -17,6 +17,7 @@ export default {
     data,
     methods: {
       formUpdateUser,
+      uploadImage,
     },
 }
 
@@ -75,7 +76,21 @@ function formUpdateUser(username, bio, avatar) {
         })
 }
 
+// Upload image & preview it in the form before sending it to the server
+function uploadImage() {
+    // Get the file
+    const file = this.$refs.file.files[0]
+    // Add the file to data avatar
+    this.avatar = file
 
+    // Preview the image in the form before sending it to the server
+    // Push the file in store   
+    const reader = new FileReader()
+    reader.onload = (e) => {
+        this.$store.commit("setAvatar", e.target.result)
+    }
+    reader.readAsDataURL(file)
+}
 
 </script>
 
@@ -117,7 +132,15 @@ function formUpdateUser(username, bio, avatar) {
                   <img :src="this.$store.state.user.avatar" id="show-user-avatar" alt="User Avatar">
 
                   <!-- TODO Button to upload image & change in DB / localstorage & update store -->
-                  <input id="avatar" type="file" name="avatar">
+                  <input 
+                    id="avatar" 
+                    name="avatar"
+                    type="file"
+                    ref="file"
+                    label="Avatar"
+                    accept="image/png, image/jpeg"
+                    :v-model="avatar"
+                    @change="uploadImage">
                   <label for="avatar">
                     <i class="fa fa-upload"></i>
                   </label>
@@ -228,7 +251,8 @@ input[type=file] {
 .show-avatar img{
     width: 150px;
     height: 150px;
-    border-radius: 100px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 .show-avatar label {
     position: absolute;
