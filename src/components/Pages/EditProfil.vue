@@ -5,7 +5,13 @@ import FormUser from './FormUser.vue';
 // Export EditProfil
 export default {
     name: "EditProfil",
-    components: { FormUser }
+    components: { FormUser },
+    // If user is auth, redirect to home
+  mounted: function () {
+    if (!this.$store.state.isUserAuth) {
+      this.$router.push("/")
+    }
+  },
 }
 
 </script>
