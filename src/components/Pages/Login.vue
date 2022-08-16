@@ -16,6 +16,12 @@ const data = () => {
 export default {
   name: 'Login',
   data,
+  // If user is auth, redirect to home
+  mounted: function () {
+    if (this.$store.state.isUserAuth) {
+      this.$router.push("/home")
+    }
+  },
 
   // Methods for Login
   methods: {
@@ -63,8 +69,15 @@ function formUserValidity(email, password) {
       // Save token & userId in localStorage
       localStorage.setItem("token", res.token)
       localStorage.setItem("userId", res.userId)
-      localStorage.setItem("user", res)
+
+
+      // Stringify user in localStorage
+      const userInfo = JSON.stringify(res)
+      // Save user in localStorage
+      localStorage.setItem("user", userInfo)
       
+      // Send res in store user
+      this.$store.commit("setUser", res)
       
       // Verify if token is in localStorage
       let tokenInCache
@@ -72,13 +85,8 @@ function formUserValidity(email, password) {
         tokenInCache = localStorage.getItem("token")
       }
 
+      // Redirect to Home page
       this.$router.push("/home")
-
-      // Send user information in store
-      store.dispatch('getUserInfos', {
-        user: res
-      })
-
     })
     // Catch error if login failed and display error message
     .catch(() => {

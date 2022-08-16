@@ -7,6 +7,7 @@ import HomeProfil from '../Users/HomeProfil.vue';
 export default {
     name: "Home",
     components: { Profil: HomeProfil, DisplayMessage, CreateMessage, HomeProfil },
+    // If user is not auth, redirect to landing
     mounted: function () {
         if (!this.$store.state.isUserAuth) {
             this.$router.push("/")

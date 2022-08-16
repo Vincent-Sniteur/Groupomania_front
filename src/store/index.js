@@ -2,14 +2,17 @@
 import { createStore } from 'vuex'
 
 const user = localStorage.getItem('user')
-const token = localStorage.getItem('token')
+const token = localStorage.getItem('token') || null
+
 
 // Create a new store instance.
 const store = createStore({
   state: {
-    user: user,
+    user: user ? JSON.parse(user) : null,
     token: token,
     isUserAuth: (user && token) ? true : false,
+    // status of user, if isUserAuth is true, user is connected
+    status: (user && token) ? 'Online' : 'Offline',
   },
 
   // Getters are functions that return a value from the store state.
@@ -28,20 +31,19 @@ const store = createStore({
     setUser(state, user) {
       state.user = user,
       state.isUserAuth = true,
-      state.token = user.token
+      state.token = user.token,
+      state.status = "Online"
     },
     logout(state) {
       state.user = null,
       state.isUserAuth = false,
-      state.token = null
+      state.token = null,
+      state.status = "Offline"
     }
 },
 
   // Put to the store the user data received from the backend
   actions: {
-    getUserInfos({ commit }, user) {
-      commit('setUser', user)
-    },
     logout({ commit }) {
       commit('logout')
     },

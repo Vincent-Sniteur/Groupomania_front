@@ -1,7 +1,4 @@
 <script>
-
-
-
 // Export
 export default {
     name: 'HomeProfil',
@@ -14,12 +11,13 @@ export default {
 <div class="col-md-3 mb-2">
     <div class="content-center text-center porfile-content">
         <div class="photo-container">
-            <img id="user-profil-picture" src="" alt="User Avatar" width="100" height="100">
+            <img id="user-profil-picture" src="{{this.$store.state.user.avatar}}" alt="User Avatar" width="100" height="100">
         </div>
-        <!-- get username in user and display -->
-        <h3 class="title">zz</h3>
-        <!-- <h3 class="title" id="user-name">{{store.}}</h3> -->
-        <p class="category" id="user-description">user bio</p>
+        <!-- Get username in store & display -->
+        <h3 class="title" id="user-name">{{this.$store.state.user.username}}</h3>
+       
+        <p class="category" id="user-description">{{ this.$store.state.user.bio }}</p>
+        <p class="bg-success" id="user-status">{{ this.$store.state.status }}</p>
 
 
         <!-- View profil-->
@@ -34,4 +32,15 @@ export default {
 
 
 <style scoped>
+#user-status {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 5px 10px;
+    border-radius: 30px;
+    color: #fff;
+    width: fit-content;
+    margin: 5px auto;
+}
 </style>

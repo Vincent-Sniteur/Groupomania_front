@@ -16,6 +16,12 @@ const data = () => {
 export default {
   name: 'Register',
   data,
+  // If user is auth, redirect to home
+  mounted: function () {
+    if (this.$store.state.isUserAuth) {
+      this.$router.push("/home")
+    }
+  },
 
   // Methods for Register
   methods: {
@@ -59,31 +65,22 @@ function formUserValidity(email, password) {
     })
     // Save token & userId in localStorage & store user in store
     .then((res) => {
+      if (res.ok) return res.json()
+    })
+    // Save token & userId in localStorage & store user in store
+    .then((res) => {
       // Save token & userId in localStorage
       localStorage.setItem("token", res.token)
       localStorage.setItem("userId", res.userId)
-      
-      // Send user information in store
-      store.dispatch('getUserInfos', {
-        userId: res.userId,
-        token: res.token,
-        email: res.email,
-        username: res.username,
-        role: res.role,
-        bio: res.bio,
-        avatar: res.avatar,
-        location: res.location,
-        numberOfPosts: res.numberOfPosts,
-        numberOfLikes: res.numberOfLikes,
-        numberOfLikesReceived: res.numberOfLikesReceived,
-        isAdmin: res.isAdmin,
-        isBanned: res.isBanned,
-        status: res.status,
-        messages: res.messages,
-      })
 
-      // // Store user in localStorage
-      localStorage.setItem("user", JSON.stringify(this.$store.state))
+
+      // Stringify user in localStorage
+      const userInfo = JSON.stringify(res)
+      // Save user in localStorage
+      localStorage.setItem("user", userInfo)
+      
+      // Send res in store user
+      this.$store.commit("setUser", res)
       
       // Verify if token is in localStorage
       let tokenInCache
@@ -91,13 +88,10 @@ function formUserValidity(email, password) {
         tokenInCache = localStorage.getItem("token")
       }
 
-      // Success message
-      sucessRegister()
-      // Redirect to home page after 3 seconds if register is success
-      setTimeout(() => {
-        this.$router.push("/home")
-      }, 3000)
+      // Redirect to Home page
+      this.$router.push("/home")
     })
+    // Catch error if login failed and display error message
     .catch((err) => {
       isFormIncorrect()
     })

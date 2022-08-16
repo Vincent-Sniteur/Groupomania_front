@@ -5,7 +5,13 @@ import Register from './Register.vue';
 // Export Landing component
 export default {
     name: "Landing",
-    components: { Register }
+    components: { Register },
+    // If user is auth, redirect to home
+    mounted: function () {
+        if (this.$store.state.isUserAuth) {
+            this.$router.push("/home")
+        }
+    },
 }
 
 </script>
