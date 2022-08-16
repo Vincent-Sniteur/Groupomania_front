@@ -1,7 +1,62 @@
 <script>
+const { VITE_SERVER_URL, VITE_SERVER_PORT } = import.meta.env
+const fetchURL = 'http://' + VITE_SERVER_URL + ':' + VITE_SERVER_PORT + '/'
+
+// Data component
+const data = () => {
+    return {
+      username: "",
+      bio: "",
+      avatar: "",
+    }
+}
+
+// Export
 export default {
     name: 'FormUser',
+    data,
+    methods: {
+      formUpdateUser,
+    },
 }
+
+function formUpdateUser(username, bio, avatar) {
+  const authOptions = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + localStorage.getItem("token")
+    },
+    body: JSON.stringify({ username, bio, avatar })
+  }
+  fetch(fetchURL + "auth/users/" + localStorage.getItem("userId"), authOptions)
+    // Return response in json
+    .then((res) => {
+      if (res.ok) return res.json()
+    })
+    // Save token & userId in localStorage & store user in store
+    .then((res) => {
+    // Save token & userId in localStorage
+      localStorage.setItem("userId", res.userId)
+
+    // replace in user localstorage with new user data
+        const user = JSON.parse(localStorage.getItem("user"))
+        user.username = res.username
+        user.bio = res.bio
+        user.avatar = res.avatar
+        localStorage.setItem("user", JSON.stringify(user))
+      
+      // Send res in store user
+      this.$store.commit("setUser", res)
+
+      // Redirect to Home page
+      this.$router.push("/home")
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
+
 
 
 </script>
@@ -11,21 +66,29 @@ export default {
         <form class="form-wrap">
           <div class="form-row">
             <div class="form-item">
-              <label for="user-name" class="rl-label">Full Name</label>
+              <label for="username" class="rl-label">Full Name : {{this.$store.state.user.username}} </label>
               <input 
-                type="text" 
-                id="user-name" 
-                name="name" 
-                maxlength="40"
-                v-model="this.$store.state.user.username">
+                type="username"
+                class="form-control" 
+                id="username"
+                maxlength="40" 
+                placeholder="Add your name..."
+                v-model="username"
+                @click="errorMessage = ''">
             </div>
           </div>
 
           <div class="form-row">
             <!-- Description User -->
             <div class="form-item">
-              <label for="user-description" class="rl-label">Description</label>
-              <textarea name="description" id="user-description" placeholder="Added a short description of yourself..." maxlength="100">{{this.$store.state.user.bio}}</textarea>
+              <label for="description" class="rl-label">Description : {{this.$store.state.user.bio}}</label>
+                <textarea
+                    type="text" 
+                    v-model="bio"
+                    id="bio" 
+                    placeholder="Added a short bio of yourself..." 
+                    maxlength="100">
+                </textarea>
             </div>
 
             <!-- User Avatar -->
@@ -37,9 +100,9 @@ export default {
                 <div class="show-avatar">
                   <img :src="this.$store.state.user.avatar" id="show-user-avatar" alt="User Avatar">
 
-                  <!-- Button to upload image -->
-                  <input id="new-user-avatar" type="file">
-                  <label for="new-user-avatar">
+                  <!-- TODO Button to upload image & change in DB / localstorage & update store -->
+                  <input id="avatar" type="file" name="avatar">
+                  <label for="avatar">
                     <i class="fa fa-upload"></i>
                   </label>
                 </div>
@@ -58,7 +121,14 @@ export default {
             </router-link>
 
             <!-- Confirm Btn -->
-            <button type="submit" id="submit-profil" class="button blue ms-5 rounded-pill">Confirm</button>
+            <button 
+              id="edit-user-submit" 
+              class="button blue ms-5 rounded-pill"
+              type="submit"
+              :disabled="username && bio == ''"
+              @click.prevent="() => formUpdateUser(this.username, this.bio, this.avatar)">
+              >Sign in
+            </button>
           </div>
         </form>
         <!-- FORM -->
@@ -101,7 +171,7 @@ input[type=file] {
     clear: both;
 }
 textarea {
-    min-height: 160px;
+    min-height: 100px;
     padding: 12px 20px;
     border-radius: 24px;
     width: 100%;
