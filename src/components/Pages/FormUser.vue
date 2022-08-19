@@ -1,13 +1,14 @@
 <script>
+
 const { VITE_SERVER_URL, VITE_SERVER_PORT } = import.meta.env
 const fetchURL = 'http://' + VITE_SERVER_URL + ':' + VITE_SERVER_PORT + '/'
 
 // Data component
 const data = () => {
     return {
-      username: "",
-      bio: "",
-      avatar: "",
+        username: '',
+        bio: '',
+        avatar: [],
     }
 }
 
@@ -16,11 +17,39 @@ export default {
     name: 'FormUser',
     data,
     methods: {
-      formUpdateUser,
-      uploadImage,
+        uploadImage,
+        formUpdateUser,
     },
 }
 
+// Upload image & preview it in the form before sending it to the server
+function uploadImage() {
+    // Get the file from the input
+    const userAvatar = this.$refs.file.files[0]
+    console.log(userAvatar)
+
+    // Preview the image in the form before sending it to the server
+    const reader = new FileReader()
+    reader.onload = (e) => {
+        this.$store.commit("setAvatar", e.target.result)
+    }
+    reader.readAsDataURL(userAvatar)
+
+    // Convert the image to blob to send it to the server
+    var blob = window.dataURLtoBlob(reader.result)
+    console.log(blob, new File([blob], "avatar.png", { type: "image/png" }))
+    // this.avatar = new File([blob], "avatar.png", { type: "image/png" })
+
+
+
+
+
+    // const url = URL.createObjectURL(userAvatar)
+    // this.avatar = url
+    
+}
+
+// Send the form to the server
 function formUpdateUser(username, bio, avatar) {
     // If the user has not entered information in the form, stop the function
     if (username == "" && bio == "" && avatar == "") {
@@ -38,14 +67,14 @@ function formUpdateUser(username, bio, avatar) {
     if (avatar == "") {
       avatar = this.$store.state.user.avatar
     }
-
+    // Option for the fetch
     const authOptions = {
         method: "PUT",
         headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("token")
+        "Authorization": "Bearer " + localStorage.getItem("userId"),
         },
-        body: JSON.stringify({ username, bio, avatar })
+        body: JSON.stringify({ username, bio, avatar }),
     }
     fetch(fetchURL + "auth/users/" + localStorage.getItem("userId"), authOptions)
         // Return response in json
@@ -54,6 +83,7 @@ function formUpdateUser(username, bio, avatar) {
         })
         // Save token & userId in localStorage & store user in store
         .then((res) => {
+            console.log(res)
             // Save token & userId in localStorage
             localStorage.setItem("userId", res.userId)
 
@@ -74,22 +104,6 @@ function formUpdateUser(username, bio, avatar) {
         .catch((error) => {
             console.log(error)
         })
-}
-
-// Upload image & preview it in the form before sending it to the server
-function uploadImage() {
-    // Get the file
-    const file = this.$refs.file.files[0]
-    // Add the file to data avatar
-    this.avatar = file
-
-    // Preview the image in the form before sending it to the server
-    // Push the file in store   
-    const reader = new FileReader()
-    reader.onload = (e) => {
-        this.$store.commit("setAvatar", e.target.result)
-    }
-    reader.readAsDataURL(file)
 }
 
 </script>
@@ -137,10 +151,10 @@ function uploadImage() {
                     name="avatar"
                     type="file"
                     ref="file"
-                    label="Avatar"
+                    label="avatar"
                     accept="image/png, image/jpeg"
                     :v-model="avatar"
-                    @change="uploadImage">
+                    @change="uploadImage()">
                   <label for="avatar">
                     <i class="fa fa-upload"></i>
                   </label>

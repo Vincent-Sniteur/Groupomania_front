@@ -19,21 +19,30 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/', component: Landing }, // Add redict to home if user logged
-        { path: '/home', component: Home, meta: { requiresAuth: true } }, // Add security for only user connected
+        { path: '/home', component: Home }, // Add security for only user connected
         { path: '/login', component: Login }, // if user already logged, redirect to home
         { path: '/register', component: Register }, // if user already logged, redirect to home
-        { path: '/edit-profil', component: EditProfil, meta: { requiresAuth: true } },
+        { path: '/edit-profil', component: EditProfil },
         { path: '/contact', component: Contact },
     ]
 })
 
 // Router Guard for security
-const publicPaths = ['/', '/login', '/register']
+const publicPaths = ['/', '/login', '/register', '/contact']
 
-// Router security status user before login with public path
+// Router security status
 router.beforeEach((to, from, next) => {
-    if (to.path !== publicPaths) {
+    // Check if user is in public path
+    if (publicPaths.includes(to.path)) {
         next()
+    } else { // If user is not in public path check if user is logged
+        const user = localStorage.getItem('user')
+        const token = localStorage.getItem('token')
+        if (user && token) {
+            next() // if user is logged, go to the page requested
+        } else {
+            next('/') // Redirect to landing page
+        }
     }
 })
 

@@ -1,16 +1,53 @@
 <script>
-import DisplayMessage from '../Messages/DisplayMessage.vue';
-import CreateMessage from '../Messages/CreateMessage.vue';
-import HomeProfil from '../Users/HomeProfil.vue';
+import HomeProfil from '../Users/HomeProfil.vue'
+import CreateMessage from '../Messages/CreateMessage.vue'
+import DisplayMessage from '../Messages/DisplayMessage.vue'
+
+// Info for fetch
+const { VITE_SERVER_URL, VITE_SERVER_PORT } = import.meta.env
+const fetchURL = 'http://' + VITE_SERVER_URL + ':' + VITE_SERVER_PORT + '/'
+
+// Data component
+const data = () => {
+    return {
+        posts: [],
+    }
+}
 
 // Export Home component
 export default {
     name: "Home",
-    components: { Profil: HomeProfil, DisplayMessage, CreateMessage, HomeProfil },
-    // If user is not auth, redirect to landing
+    data,
+    components: {
+        HomeProfil,
+        CreateMessage,
+        DisplayMessage
+    },
+    methods: {
+        // Get all posts
+        allPost() {
+            fetch(fetchURL + "message", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + localStorage.getItem("token")
+                    }
+                })
+                .then((res) => {
+                        if (res.ok) return res.json()
+                })
+                .then(res => {
+                    this.posts = res
+                })
+                .catch(err => console.log(err))
+        }
+    },
+    // If user is not auth, redirect to landing. Else, get all posts and display them in home
     mounted: function () {
         if (!this.$store.state.isUserAuth) {
             this.$router.push("/")
+        } else {
+            this.allPost() // Get all posts
         }
     },
 }
@@ -23,7 +60,7 @@ export default {
     <div class="container-fluid">
         <div class="row">
                     
-            <!-- Import HomeProfil -->
+            <!-- Import HomeProfil TODO DEBUG LOADING--> 
             <HomeProfil />
 
 
@@ -42,8 +79,15 @@ export default {
                     <!-- POST MESSAGE -->
                     <CreateMessage />
                     
+                    <!-- Display message if no post -->
+                    <div v-if="posts.length == 0" class="text-center">
+                        <h3 class="text-center alert-danger alert">No post yet</h3>
+                    </div>
+                    
                     <!-- Menu Last Message Posted + img -->  
-                    <DisplayMessage />
+                    <li v-for="post in posts">
+                        <DisplayMessage/>
+                    </li>
                 </div>
             </div>
         </div>
@@ -57,4 +101,7 @@ export default {
 
 
 <style scoped>
+li {
+    list-style: none;
+}
 </style>

@@ -109,7 +109,7 @@ function isFormEmpty() {
                 id="btn-send" 
                 type="button" 
                 class="btn btn-primary me-1 rounded-pill pull-right"
-                @click.prevent="() => {postCheck(this.post, this.file)}"
+                @click.prevent="() => {postCheck(this.post)}"
                 >Send
             </button>
             <input id="attach-file" type="file">

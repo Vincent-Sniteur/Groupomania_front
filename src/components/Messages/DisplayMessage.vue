@@ -1,46 +1,45 @@
 <script>
+
+// Export Wall of messages
 export default {
     name: "DisplayMessage",
 }
 
-
-// return all messages in database & display
-// function getMessages() {
-//     fetch(fetchURL + "messages", {
-//         method: "GET",
+// Function for delete message if user is admin or author
+// function deleteMessage(id) {
+//     fetch(fetchURL + "message/" + id, {
+//         method: "DELETE",
 //         headers: {
 //             "Content-Type": "application/json",
-//             "Authorization": "Bearer " + user.token
-//         }
+//             "Authorization": "Bearer " + localStorage.getItem("token"),
+//         },
 //     })
+//         // Return response in json
 //         .then((res) => {
 //             if (res.ok) return res.json()
-//             res.text().then((err) => {
-//                 const { error } = JSON.parse(err)
-//                 this.error = error
-//                 throw new Error(error)
-//             })
 //         })
-//         .then((data) => {
-//             this.$store.commit('setMessages', data)
+//         // Save response in res
+//         .then((res) => {
+//             console.log(res)
+//             this.getMessages()
 //         })
+//         // Catch error
 //         .catch((err) => {
 //             console.log(err)
 //         })
 // }
 
-
-// TODO : Add function if heart is clicked then toggle class is-active
-function heartClick() {
-    const heart = document.querySelector('#heart')
-    heart.addEventListener('click', () => {
-        if (heart.classList.contains('is-active')) {
-            heart.classList.remove('is-active')
-        } else {
-            heart.classList.add('is-active')
-        }
-    })
-}
+// // TODO : Add function if heart is clicked then toggle class is-active
+// function likeMessage() {
+//     const heart = document.querySelector('#heart')
+//     heart.addEventListener('click', () => {
+//         if (heart.classList.contains('is-active')) {
+//             heart.classList.remove('is-active')
+//         } else {
+//             heart.classList.add('is-active')
+//         }
+//     })
+// }
 
 </script>
 
@@ -54,15 +53,15 @@ function heartClick() {
 
         <!-- Username -->
         <!-- Username -->
-        <h5 id="username" class="post-comment-username card-title">Utilisateur 1</h5>
+        <h5 id="username" class="post-comment-username card-title">User</h5>
 
 
         <!-- Attached file -->
         <div class="post-comment-attach mt-2">
-            <!-- <img class="card-img-top mb-1" src="https://picsum.photos/500/500" alt="Attached file"> -->
+            <img class="card-img-top mb-1" src="https://picsum.photos/500/500" alt="Attached file">
         </div>
 
-        <!-- Timestamp & User option -->
+        <!-- TODO Timestamp & User option -->
         <p id="message-info" class="post-comment-timestamp mt-2">25 mins ago
             <!-- Edit button -->
             <router-link to="#" id="edit-btn" class="edit-button">Edit</router-link>
@@ -80,48 +79,10 @@ function heartClick() {
         <div class="post-option mb-1">
             <!-- Heart -->
             <div class="placement">
-                <div id="heart" class="heart" @click.prevent="heartClick()"></div>
+                <div id="heart" class="heart" @click.prevent="likeMessage()"></div>
             </div>
         </div>
     </div>
-<!-- END EXEMPLE MESSAGE -->
-
-<!-- EXEMPLE MESSAGE WITH ATTACHED FILE -->
-    <div class="post-comment">
-        <!-- Profil img -->
-        <img id="user-avatar" class="mr-3 rounded-circle img-flex" src="https://picsum.photos/50/50" alt="User Avatar" width="50" height="50">
-
-        <!-- Username -->
-        <h5 id="username" class="post-comment-username card-title">Utilisateur 1</h5>
-
-        <!-- Attached file -->
-        <div class="post-comment-attach mt-2">
-            <img class="card-img-top mb-1" src="https://picsum.photos/500/500" alt="Attached file">
-        </div>
-
-        <!-- Timestamp & User option -->
-        <p id="message-info" class="post-comment-timestamp mt-2">25 mins ago
-            <!-- Edit button -->
-            <router-link to="#" id="edit-btn" class="edit-button">Edit</router-link>
-            <!-- Delete button -->
-            <router-link to="#" id="delete-btn" class="delete-button">Delete</router-link>
-            <!-- Admin button -->
-            <router-link to="#" id="ban-btn" class="admin-button">Ban User</router-link>
-        </p>
-        
-
-        <!-- Message -->
-        <p id="user-message" class="post-comment-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-        
-        <!-- Post Option ( for futur comment mb-5 )-->
-        <div class="post-option mb-1">
-            <!-- Heart -->
-            <div class="placement">
-                <div id="heart" class="heart is-active"></div>
-            </div>
-        </div>
-    </div>
-
 <!-- END EXEMPLE MESSAGE -->
 </div>
 </template>
@@ -131,10 +92,11 @@ function heartClick() {
 /* POST */ 
 .post-comment {
     background-color: white;
-    border-top: 2px solid #4E5166;
-    border-bottom: 2px solid #4E5166;
+    border-top: 1px solid #4E5166;
+    border-bottom: 1px solid #4E5166;
     position: relative;
     padding: 10px 0 20px 0;
+    border-radius: 5px;
 }
 .post-comment-username {
     color: #363636;

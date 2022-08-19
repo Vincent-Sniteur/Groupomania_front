@@ -1,8 +1,8 @@
 <script setup>
 // Import Navbar component
-import Navbar from './components/UI/Navbar.vue';
+import Navbar from './components/UI/Navbar.vue'
 // Import Footer component
-import Footer from './components/UI/Footer.vue';
+import Footer from './components/UI/Footer.vue'
 
 </script>
 
