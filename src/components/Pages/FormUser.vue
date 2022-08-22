@@ -27,7 +27,6 @@ export default {
 function uploadImage() {
     // Get the file from the input
     const userAvatar = this.$refs.file.files[0]
-    console.log(userAvatar)
 
     // if file is not an image, return
     if (!userAvatar.type.match('image.*')) {
