@@ -8,7 +8,6 @@ const data = () => {
         post: "",
         image: "",
         userId: "",
-        date: "",
     }
 }
 // Export Message component
@@ -17,14 +16,36 @@ export default {
     data,
     // Methods for send message
     methods: {
+        sendImage,
         sendMessage,
         postCheck,
     },
 }
+// Function send image to server
+function sendImage() {
+    // Get the file from the input
+    const userImage = this.$refs.file.files[0]
+    console.log(userImage)
+
+    // if file is not an image, return
+    if (!userImage.type.match('image.*')) {
+        return alert('Please upload an image')
+    }
+    // Add limit size max 1Mo
+    if (userImage.size > 1000000) {
+        return alert('Please upload an image less than 1Mo')
+    }
+    // Preview the image in the DOM
+    const reader = new FileReader()
+    reader.onload = (e) => {
+        this.image = e.target.result
+    }
+    reader.readAsDataURL(userImage)
+}
 
 // Function formMessage for create message
-function sendMessage(post, image, userId, date) {
-    console.log('Message send : ' + this.post + ' ' + this.image + ' ' + this.userId + ' ' + this.date)
+function sendMessage(post, image, userId) {
+    console.log('Message send : ' + this.post + ' ' + this.image + ' ' + this.userId + ' ')
     sucessPost()
     fetch(fetchURL + "message", {
         method: "POST",
@@ -41,6 +62,13 @@ function sendMessage(post, image, userId, date) {
         // Save response in res
         .then((res) => {
             console.log(res)
+
+
+
+            // Reset form
+            this.post = ""
+            this.image = ""
+            this.userId = ""
         })
         // Catch error
         .catch((err) => {
@@ -50,8 +78,7 @@ function sendMessage(post, image, userId, date) {
 
 // Function for check if post is empty & send message to function sendMessage
 function postCheck() {
-    if (this.post.length >= 1) {
-        this.date = new Date()
+    if (this.post.length >= 1 || this.image.length >= 1) {
         return this.sendMessage()
     } else {
         isFormEmpty()
@@ -99,8 +126,7 @@ function isFormEmpty() {
                 id="post" 
                 maxlength="500"
                 required="required"
-                v-model="post"
-                >
+                v-model="post">
             </textarea>
         </div>
         <!-- Message button -->
@@ -112,11 +138,23 @@ function isFormEmpty() {
                 @click.prevent="() => {postCheck(this.post)}"
                 >Send
             </button>
-            <input id="attach-file" type="file">
-            <label for="attach-file" class="btn btn-dark rounded-pill">Add image</label>
-
+            <input 
+                id="attach-file" 
+                type="file"
+                ref="file"
+                name="image"
+                accept="image/png, image/jpeg, image/jpg"
+                :v-model="image"
+                @change="sendImage()">
+            <label for="attach-file" class="btn btn-dark rounded-pill">
+                <i class="fa fa-upload"></i>
+            </label>
+            
+            <!-- Image upload by user for post -->
+            <img v-if="image" :src="image" alt="image" class="" id="image-post">
             <!-- Error or Sucess Message -->
             <p id="post-error" class="alert p-1 text-center"></p>
+            
         </div>
 
         
@@ -139,5 +177,12 @@ input[type=file] {
 #post-error {
     width: 60%;
     margin: 0 auto;
+}
+#image-post {
+    width: 150px;
+    height: 100%;
+    object-fit: cover;
+    margin: 0 auto;
+    display: block;
 }
 </style>
