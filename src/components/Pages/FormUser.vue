@@ -6,9 +6,9 @@ const fetchURL = 'http://' + VITE_SERVER_URL + ':' + VITE_SERVER_PORT + '/'
 // Data component
 const data = () => {
     return {
-        username: '',
-        bio: '',
-        avatar: [],
+        username: "",
+        bio: "",
+        avatar: "",
     }
 }
 
@@ -28,25 +28,21 @@ function uploadImage() {
     const userAvatar = this.$refs.file.files[0]
     console.log(userAvatar)
 
-    // Preview the image in the form before sending it to the server
+    // if file is not an image, return
+    if (!userAvatar.type.match('image.*')) {
+        return alert('Please upload an image')
+    }
+    // Add limit size max 1Mo
+    if (userAvatar.size > 1000000) {
+        return alert('Please upload an image less than 1Mo')
+    }
+    // Preview the image in the DOM
     const reader = new FileReader()
     reader.onload = (e) => {
         this.$store.commit("setAvatar", e.target.result)
+        this.avatar = e.target.result
     }
     reader.readAsDataURL(userAvatar)
-
-    // Convert the image to blob to send it to the server
-    var blob = window.dataURLtoBlob(reader.result)
-    console.log(blob, new File([blob], "avatar.png", { type: "image/png" }))
-    // this.avatar = new File([blob], "avatar.png", { type: "image/png" })
-
-
-
-
-
-    // const url = URL.createObjectURL(userAvatar)
-    // this.avatar = url
-    
 }
 
 // Send the form to the server
@@ -65,17 +61,18 @@ function formUpdateUser(username, bio, avatar) {
     }
     // If the user hat not entered a new avatar, keep the old one
     if (avatar == "") {
-      avatar = this.$store.state.user.avatar
+        avatar = this.$store.state.user.avatar
     }
     // Option for the fetch
     const authOptions = {
         method: "PUT",
         headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("userId"),
+        "Authorization": "Bearer " + localStorage.getItem("token"),
         },
         body: JSON.stringify({ username, bio, avatar }),
     }
+    // Fetch to the server
     fetch(fetchURL + "auth/users/" + localStorage.getItem("userId"), authOptions)
         // Return response in json
         .then((res) => {
@@ -83,20 +80,21 @@ function formUpdateUser(username, bio, avatar) {
         })
         // Save token & userId in localStorage & store user in store
         .then((res) => {
-            console.log(res)
             // Save token & userId in localStorage
             localStorage.setItem("userId", res.userId)
 
             // Replace user localstorage with new user data
-                const user = JSON.parse(localStorage.getItem("user"))
+            const user = JSON.parse(localStorage.getItem("user"))
                 user.username = res.username
                 user.bio = res.bio
                 user.avatar = res.avatar
                 localStorage.setItem("user", JSON.stringify(user))
-            
-            // Send res in store user
+                
+            // Send res in store user & alert user
             this.$store.commit("setUser", res)
+            this.$store.commit("setAvatar", res.avatar)
             alert("Votre profil a bien été mis à jour")
+
 
             // Redirect to Home page
             this.$router.push("/home")
@@ -117,7 +115,6 @@ function formUpdateUser(username, bio, avatar) {
               <input 
                 type="text"
                 class="form-control" 
-                id="username"
                 maxlength="20" 
                 placeholder="Add your name..."
                 v-model="username">
@@ -131,7 +128,6 @@ function formUpdateUser(username, bio, avatar) {
                 <input
                     type="text" 
                     v-model="bio"
-                    id="bio" 
                     placeholder="Added a short bio of yourself..." 
                     maxlength="50">
             </div>
@@ -145,27 +141,25 @@ function formUpdateUser(username, bio, avatar) {
                 <div class="show-avatar">
                   <img :src="this.$store.state.user.avatar" id="show-user-avatar" alt="User Avatar">
 
-                  <!-- TODO Button to upload image & change in DB / localstorage & update store -->
+                  <!-- Btn Upload new Avatar -->
                   <input 
-                    id="avatar" 
-                    name="avatar"
+                    id="avatar"
                     type="file"
                     ref="file"
-                    label="avatar"
-                    accept="image/png, image/jpeg"
+                    label="Avatar"
+                    name="avatar"
+                    accept="image/png, image/jpeg, image/jpg"
                     :v-model="avatar"
                     @change="uploadImage()">
                   <label for="avatar">
                     <i class="fa fa-upload"></i>
                   </label>
+                  <p class="text-danger">Max Size 1 MO</p>
                 </div>
             </div>
           </div>
 
-          
-          
-
-          <!-- BUTTONS -->
+          <!-- BUTTONS ACTION FORM -->
           <div class="form-actions right">
 
             <!-- Cancel Button -->
@@ -284,6 +278,11 @@ input[type=file] {
 }
 .show-avatar label:hover {
     background-color: #00c400;
+}
+.show-avatar p {
+    font-size: 15px;
+    position: absolute;
+    font-weight: 600;
 }
 
 </style>
