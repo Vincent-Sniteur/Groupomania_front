@@ -9,6 +9,7 @@ const data = () => {
         username: "",
         bio: "",
         avatar: "",
+        oldAvatar: "",
     }
 }
 
@@ -46,7 +47,7 @@ function uploadImage() {
 }
 
 // Send the form to the server
-function formUpdateUser(username, bio, avatar) {
+function formUpdateUser(username, bio, avatar, oldAvatar) {
     // If the user has not entered information in the form, stop the function
     if (username == "" && bio == "" && avatar == "") {
       return alert("Please fill in a field or use Cancel.")
@@ -61,7 +62,8 @@ function formUpdateUser(username, bio, avatar) {
     }
     // If the user hat not entered a new avatar, keep the old one
     if (avatar == "") {
-        avatar = this.$store.state.user.avatar
+        avatar = null
+        oldAvatar = this.$store.state.user.avatar
     }
     // Option for the fetch
     const authOptions = {
@@ -70,7 +72,7 @@ function formUpdateUser(username, bio, avatar) {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + localStorage.getItem("token"),
         },
-        body: JSON.stringify({ username, bio, avatar }),
+        body: JSON.stringify({ username, bio, avatar, oldAvatar }),
     }
     // Fetch to the server
     fetch(fetchURL + "auth/users/" + localStorage.getItem("userId"), authOptions)
