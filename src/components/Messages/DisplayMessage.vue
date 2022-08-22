@@ -30,16 +30,16 @@ export default {
 // }
 
 // // TODO : Add function if heart is clicked then toggle class is-active
-// function likeMessage() {
-//     const heart = document.querySelector('#heart')
-//     heart.addEventListener('click', () => {
-//         if (heart.classList.contains('is-active')) {
-//             heart.classList.remove('is-active')
-//         } else {
-//             heart.classList.add('is-active')
-//         }
-//     })
-// }
+function likeMessage() {
+    const heart = document.querySelector('#heart')
+    heart.addEventListener('click', () => {
+        if (heart.classList.contains('is-active')) {
+            heart.classList.remove('is-active')
+        } else {
+            heart.classList.add('is-active')
+        }
+    })
+}
 
 </script>
 
@@ -52,9 +52,7 @@ export default {
         <img id="user-avatar" class="mr-3 rounded-circle img-flex" src="https://picsum.photos/50/50" alt="User Avatar" width="50" height="50">
 
         <!-- Username -->
-        <!-- Username -->
-        <h5 id="username" class="post-comment-username card-title">User</h5>
-
+        <h5 id="username" class="post-comment-username card-title">Username</h5>
 
         <!-- Attached file -->
         <div class="post-comment-attach mt-2">
@@ -63,11 +61,11 @@ export default {
 
         <!-- TODO Timestamp & User option -->
         <p id="message-info" class="post-comment-timestamp mt-2">25 mins ago
-            <!-- Edit button -->
+            <!-- Edit button TODO IF USER IS ADMIN OR AUTHOR -->
             <router-link to="#" id="edit-btn" class="edit-button">Edit</router-link>
-            <!-- Delete button -->
+            <!-- Delete button TODO IF USER IS ADMIN OR AUTHOR -->
             <router-link to="#" id="delete-btn" class="delete-button">Delete</router-link>
-            <!-- Admin button -->
+            <!-- Admin button TODO IF USER IS ADMIN -->
             <router-link to="#" id="ban-btn" class="admin-button">Ban User</router-link>
         </p>
         

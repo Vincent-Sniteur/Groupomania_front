@@ -11,6 +11,7 @@ const fetchURL = 'http://' + VITE_SERVER_URL + ':' + VITE_SERVER_PORT + '/'
 const data = () => {
     return {
         posts: [],
+        users: [],
     }
 }
 
@@ -37,7 +38,8 @@ export default {
                         if (res.ok) return res.json()
                 })
                 .then(res => {
-                    this.posts = res
+                    this.posts = res.posts
+                    console.log(res)
                 })
                 .catch(err => console.log(err))
         }
@@ -60,8 +62,8 @@ export default {
     <div class="container-fluid">
         <div class="row">
                     
-            <!-- Import HomeProfil TODO DEBUG LOADING--> 
-            <HomeProfil />
+            <!-- Import HomeProfil --> 
+            <HomeProfil v-if="this.$store.state.user" />
 
 
             <!-- WALL -->
@@ -79,11 +81,11 @@ export default {
                     <!-- POST MESSAGE -->
                     <CreateMessage />
                     
-                    <!-- Display message if no post -->
+                    <!-- Display message if no post // Add in a post composant -->
                     <div v-if="posts.length == 0" class="text-center">
                         <h3 class="text-center alert-danger alert">No post yet</h3>
                     </div>
-                    
+
                     <!-- Menu Last Message Posted + img -->  
                     <li v-for="post in posts">
                         <DisplayMessage/>

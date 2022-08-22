@@ -69,7 +69,7 @@ function formUpdateUser(username, bio, avatar, oldAvatar) {
     const authOptions = {
         method: "PUT",
         headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json", // add by store token
         "Authorization": "Bearer " + localStorage.getItem("token"),
         },
         body: JSON.stringify({ username, bio, avatar, oldAvatar }),
@@ -80,11 +80,8 @@ function formUpdateUser(username, bio, avatar, oldAvatar) {
         .then((res) => {
             if (res.ok) return res.json()
         })
-        // Save token & userId in localStorage & store user in store
+        // Save new user in the store & local storage
         .then((res) => {
-            // Save token & userId in localStorage
-            localStorage.setItem("userId", res.userId)
-
             // Replace user localstorage with new user data
             const user = JSON.parse(localStorage.getItem("user"))
                 user.username = res.username
@@ -96,7 +93,6 @@ function formUpdateUser(username, bio, avatar, oldAvatar) {
             this.$store.commit("setUser", res)
             this.$store.commit("setAvatar", res.avatar)
             alert("Votre profil a bien été mis à jour")
-
 
             // Redirect to Home page
             this.$router.push("/home")
