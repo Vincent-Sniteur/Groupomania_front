@@ -35,7 +35,15 @@ export default {
                     }
                 })
                 .then((res) => {
+                    // If res is valide
                         if (res.ok) return res.json()
+                    // if res = token expired or invalid
+                        if (res.status === 401) {
+                            console.log("Erreur 401")
+                            localStorage.clear()
+                            this.$store.dispatch('logout')
+                            this.$router.push('/')
+                        }
                 })
                 .then(res => {
                     this.posts = res.posts
