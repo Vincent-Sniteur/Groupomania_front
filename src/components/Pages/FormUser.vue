@@ -68,13 +68,13 @@ function formUpdateUser(username, bio, avatar, oldAvatar) {
     const authOptions = {
         method: "PUT",
         headers: {
-        "Content-Type": "application/json", // add by store token
-        "Authorization": "Bearer " + localStorage.getItem("token"),
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem("token"),
         },
         body: JSON.stringify({ username, bio, avatar, oldAvatar }),
     }
     // Fetch to the server
-    fetch(fetchURL + "auth/users/" + localStorage.getItem("userId"), authOptions)
+    fetch(fetchURL + "auth/edit-users/" + localStorage.getItem("userId"), authOptions)
         // Return response in json
         .then((res) => {
             if (res.ok) return res.json()

@@ -11,7 +11,6 @@ const fetchURL = 'http://' + VITE_SERVER_URL + ':' + VITE_SERVER_PORT + '/'
 const data = () => {
     return {
         posts: [],
-        users: [],
     }
 }
 
@@ -39,7 +38,6 @@ export default {
                         if (res.ok) return res.json()
                     // if res = token expired or invalid
                         if (res.status === 401) {
-                            console.log("Erreur 401")
                             localStorage.clear()
                             this.$store.dispatch('logout')
                             this.$router.push('/')
@@ -47,10 +45,10 @@ export default {
                 })
                 .then(res => {
                     this.posts = res.posts
-                    console.log(res)
+                    console.log(this.posts)
                 })
                 .catch(err => console.log(err))
-        }
+        },
     },
     // If user is not auth, redirect to landing. Else, get all posts and display them in home
     mounted: function () {
@@ -90,13 +88,25 @@ export default {
                     <CreateMessage />
                     
                     <!-- Display message if no post // Add in a post composant -->
-                    <div v-if="posts.length == 0" class="text-center">
+                    <div v-if="posts.length === 0" class="text-center">
                         <h3 class="text-center alert-danger alert">No post yet</h3>
                     </div>
 
                     <!-- Menu Last Message Posted + img -->  
                     <li v-for="post in posts">
-                        <DisplayMessage/>
+                        <DisplayMessage
+                            :id="post._id"
+                            :postDate="post.date"
+                            :message="post.message"
+                            :postImage="post.image"
+                            :userId="post.userId"
+                            :username="post.user.username"
+                            :avatar="post.user.avatar"
+                            :bio="post.user.bio"
+                            :role="post.user.role"
+                            :status="post.user.status"
+                        >
+                        </DisplayMessage>
                     </li>
                 </div>
             </div>

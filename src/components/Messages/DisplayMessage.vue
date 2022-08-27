@@ -3,6 +3,30 @@
 // Export Wall of messages
 export default {
     name: "DisplayMessage",
+    data() {
+        return {
+            posts: [],
+            userCommande: false,
+        }
+    },
+    props: [
+        'id',
+        'postDate',
+        'message',
+        'postImage',
+        'userId',
+        'username',
+        'avatar',
+        'bio',
+        'role',
+        'status'
+    ],
+    mounted: function () {
+        // Verify if user is admin or userId is the same as the post for display the delete & edit button
+        if (this.$store.state.user.role == "admin" || this.userId == this.$store.state.user.userId) {
+            this.userCommande = true
+        }
+    },
 }
 
 // Function for delete message if user is admin or author
@@ -41,37 +65,36 @@ function likeMessage() {
     })
 }
 
+
 </script>
 
 
 <template>
 <div class="active mt-3" id="home" role="tabpanel" aria-expanded="true">
 <!-- EXEMPLE MESSAGE NO ATTACHED FILE -->
-    <div class="post-comment">
+    <div class="post">
         <!-- Profil img -->
-        <img id="user-avatar" class="mr-3 rounded-circle img-flex" src="https://picsum.photos/50/50" alt="User Avatar" width="50" height="50">
+        <img id="user-avatar" class="mr-3 rounded-circle img-flex" :src="avatar">
 
-        <!-- Username -->
-        <h5 id="username" class="post-comment-username card-title">Username</h5>
+        <!-- Username for eatch post in home componant-->
+        <h5 v-if="username" id="username" class="post-username card-title">{{ username }}</h5>
 
         <!-- Attached file -->
-        <div class="post-comment-attach mt-2">
-            <img class="card-img-top mb-1" src="https://picsum.photos/500/500" alt="Attached file">
+        <div class="post-attach mt-2">
+            <img v-if="postImage" class="card-img-top mb-1" :src="postImage" alt="Attached file">
         </div>
 
         <!-- TODO Timestamp & User option -->
-        <p id="message-info" class="post-comment-timestamp mt-2">25 mins ago
+        <p id="message-info" class="post-timestamp mt-2">{{ postDate }}
             <!-- Edit button TODO IF USER IS ADMIN OR AUTHOR -->
-            <router-link to="#" id="edit-btn" class="edit-button">Edit</router-link>
+            <router-link to="#" v-if="userCommande === true" id="edit-btn" class="edit-button">Edit</router-link>
             <!-- Delete button TODO IF USER IS ADMIN OR AUTHOR -->
-            <router-link to="#" id="delete-btn" class="delete-button">Delete</router-link>
-            <!-- Admin button TODO IF USER IS ADMIN -->
-            <router-link to="#" id="ban-btn" class="admin-button">Ban User</router-link>
+            <router-link to="#" v-if="userCommande === true" id="delete-btn" class="delete-button">Delete</router-link>
         </p>
         
 
         <!-- Message -->
-        <p id="user-message" class="post-comment-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <p v-if="message" id="user-message" class="post-text">{{message}}</p>
         
         <!-- Post Option-->
         <div class="post-option mb-1">
@@ -88,7 +111,7 @@ function likeMessage() {
 <!-- GLOBAL STYLE IMPORTANT -->
 <style>
 /* POST */ 
-.post-comment {
+.post {
     background-color: white;
     border-top: 1px solid #4E5166;
     border-bottom: 1px solid #4E5166;
@@ -96,7 +119,11 @@ function likeMessage() {
     padding: 10px 0 20px 0;
     border-radius: 5px;
 }
-.post-comment-username {
+#user-avatar {
+    width: 50px;
+    height: 50px;
+}
+.post-username {
     color: #363636;
     line-height: 1.5em;
     font-size: 1.1em;
@@ -105,17 +132,17 @@ function likeMessage() {
     margin-inline-start: 3px;
     display: inline;
 }
-.post-comment-username:hover {
+.post-username:hover {
     color: #FD2D01;
     cursor: pointer;
 }
-.post-comment-timestamp {
+.post-timestamp {
     color: #4E5166;
     font-size: .6875em;
     line-height: 1em;
     margin-inline-start: 3px;
 }
-.post-comment-text {
+.post-text {
     font-size: .875em;
     line-height: 1.8em;
     display: block;
@@ -144,27 +171,12 @@ function likeMessage() {
 }
 
 /* ATTACH FILE IMG */
-.post-comment-attach img {
+.post-attach img {
     width: 100%;
     max-height: 250px;
     object-fit: cover;
     object-position: center;
     border-radius: 20px;
-}
-
-/* REPLY COMMENT */
-.post-reply {
-    cursor: pointer;
-    position: absolute;
-    margin-inline-start: 1%;
-}
-.reply-btn {
-    color: #4E5166;
-    font-weight: 700;
-    text-decoration: none;
-}
-.reply-btn:hover {
-    color: #FD2D01;
 }
 
 
