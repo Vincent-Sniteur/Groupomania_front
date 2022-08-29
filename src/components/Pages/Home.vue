@@ -44,8 +44,11 @@ export default {
                         }
                 })
                 .then(res => {
-                    this.posts = res.posts
-                    console.log(this.posts)
+                    // Display all posts in order of date (last post first)
+                    const posts = res.posts.sort((a, b) => new Date(b.date) - new Date(a.date))
+                    this.posts = posts
+                    // Todo convert date to good format HH:MM:SS
+                    // console.log(this.posts)
                 })
                 .catch(err => console.log(err))
         },
