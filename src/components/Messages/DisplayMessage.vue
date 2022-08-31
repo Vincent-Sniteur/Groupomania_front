@@ -2,7 +2,7 @@
 const { VITE_SERVER_URL, VITE_SERVER_PORT } = import.meta.env
 const fetchURL = 'http://' + VITE_SERVER_URL + ':' + VITE_SERVER_PORT + '/'
 
-// Export Wall of messages
+// Export the display message component with like / edit / delete buttons
 export default {
     name: "DisplayMessage",
     data() {
@@ -10,6 +10,8 @@ export default {
             posts: [],
             userCommande: false,
             editClicked: false,
+            postLike: null,
+            heart: false,
         }
     },
     props: [
@@ -22,7 +24,9 @@ export default {
         'avatar',
         'bio',
         'role',
-        'status'
+        'status',
+        'likes',
+        'usersLike'
     ],
     methods: {
         // Display edit form for message
@@ -30,9 +34,12 @@ export default {
             this.editClicked = true
         },
         // Send edited message to the server
-        editePost() {
+        editPost() {
+            // Display edit form disabled
             this.editClicked = false
+            // New message content
             this.$refs.editMessage.value = this.message
+
             fetch(fetchURL + "message/" + this.id, {
                 method: 'PUT',
                 headers: {
@@ -70,23 +77,47 @@ export default {
                 })
                 .catch(error => console.log(error))
         },
-
+        // Like message & send to server
+        likePost() {
+            // Verify If user already liked the post or not
+            if (this.usersLike.includes(this.$store.state.user.userId)) {
+                this.postLike = false
+            }
+            else {
+                this.postLike = true
+            }
+            // fetch to server
+            fetch(fetchURL + "message/" + this.id + "/like", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                body: JSON.stringify({
+                    id: this.id,
+                    userId: this.$store.state.user.userId,
+                    likes: this.postLike
+                })
+            })
+                .then(res => {
+                    if (res.ok) {
+                        this.$router.go()
+                    }
+                    else throw new Error("Error liking post")
+                })
+                .catch(error => console.log(error))
+        },
     },
     mounted: function () {
         // Verify if user is admin or userId is the same as the post for display the delete & edit button
         if (this.$store.state.user.role == "admin" || this.userId == this.$store.state.user.userId) {
             this.userCommande = true
         }
+        // Verify if user already liked the post or not & display the heart
+        if (this.usersLike.includes(this.$store.state.user.userId)) {
+            this.heart = true
+        }
     },
-}
-
-
-// // TODO : Add function if heart is clicked then toggle class is-active
-function likeMessage() {
-    const heart = document.querySelector('#heart')
-    heart.addEventListener('click', () => {
-        console.log('click')
-    })
 }
 
 </script>
@@ -94,7 +125,6 @@ function likeMessage() {
 
 <template>
 <div class="active mt-3" id="home" role="tabpanel" aria-expanded="true">
-<!-- EXEMPLE MESSAGE NO ATTACHED FILE -->
     <div class="post">
         <!-- Profil img -->
         <img id="user-avatar" class="mr-3 rounded-circle img-flex" :src="avatar">
@@ -107,11 +137,11 @@ function likeMessage() {
             <img v-if="postImage" class="card-img-top mb-1" :src="postImage" alt="Attached file">
         </div>
 
-        <!-- TODO Timestamp & User option -->
+        <!-- Timestamp & User option -->
         <p id="message-info" class="post-timestamp mt-2">{{ postDate }}
             <!-- Edit button with click prevent use function editClicked --> 
             <button v-if="userCommande" id="edit-btn" class="edit-button" @click="edit">Edit</button>
-            <!-- Delete button TODO IF USER IS ADMIN OR AUTHOR -->
+            <!-- Delete button for admin or author -->
             <button v-if="userCommande" id="delete-btn" class="delete-button" @click.prevent="deletePost">Delete</button>
         </p>
         
@@ -119,7 +149,7 @@ function likeMessage() {
         <!-- Message -->
         <p v-if="message" id="user-message" class="post-text">{{message}}</p>
         
-        <!-- TODO DISPLAY IF EDIT CLIQUED -->
+        <!-- Form edit message -->
         <div v-if="editClicked" class="edit-message">
             <textarea 
                 class="form-control" 
@@ -134,18 +164,26 @@ function likeMessage() {
                 type="button" 
                 class="btn btn-primary mt-1 rounded-pill" 
                 :disabled="message.length <= 0"
-                @click.prevent="editePost">Save</button>
+                @click.prevent="editPost"
+                >Save
+            </button>
         </div>
         
         <!-- Post Option-->
         <div class="post-option mb-1">
-            <!-- Heart -->
+            <!-- Heart & like -->
             <div class="placement">
-                <div id="heart" class="heart" @click.prevent="likeMessage"></div>
+                <!-- Number of like -->
+                <p class="post-like">{{ likes }} likes</p>
+                <!-- Heart button -->
+                <div v-if="heart" class="heart is-active" @click="likePost"></div>
+                <div v-else class="heart" @click="likePost"></div>
             </div>
         </div>
+
+        
+
     </div>
-<!-- END EXEMPLE MESSAGE -->
 </div>
 </template>
 
@@ -220,6 +258,13 @@ function likeMessage() {
     border-radius: 20px;
 }
 
+.post-like {
+    font-size: .6875em;
+    line-height: 1em;
+    font-weight: 700;
+    position: absolute;
+    bottom: 20%;
+}
 
 /* LIKE BUTTON */
 .heart {
@@ -228,8 +273,6 @@ function likeMessage() {
     background: url("../img/heart.png") no-repeat;
     background-position: 0 0;
     cursor: pointer;
-    transition: background-position 1s steps(28);
-    transition-duration: 0s;
 }
 /* If heart = active*/
  .heart.is-active {
