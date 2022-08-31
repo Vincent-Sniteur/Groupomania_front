@@ -1,4 +1,6 @@
 <script>
+const { VITE_SERVER_URL, VITE_SERVER_PORT } = import.meta.env
+const fetchURL = 'http://' + VITE_SERVER_URL + ':' + VITE_SERVER_PORT + '/'
 
 // Export Wall of messages
 export default {
@@ -7,6 +9,7 @@ export default {
         return {
             posts: [],
             userCommande: false,
+            editClicked: false,
         }
     },
     props: [
@@ -21,6 +24,34 @@ export default {
         'role',
         'status'
     ],
+    methods: {
+        edit() {
+            this.editClicked = true
+            console.log("ok")
+        },
+        editePost() {
+            this.editClicked = false
+            console.log("saved")
+        },
+        deletePost() {
+            fetch(fetchURL + "message/" + this.id, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
+            })
+                .then((res) => {
+                        // If res is valide force reload
+                            if (res.ok) {
+                                this.$router.go()
+                            }
+                            else throw new Error("Erreur de suppression")
+                })
+                .catch(error => console.log(error))
+        },
+
+    },
     mounted: function () {
         // Verify if user is admin or userId is the same as the post for display the delete & edit button
         if (this.$store.state.user.role == "admin" || this.userId == this.$store.state.user.userId) {
@@ -29,42 +60,14 @@ export default {
     },
 }
 
-// Function for delete message if user is admin or author
-// function deleteMessage(id) {
-//     fetch(fetchURL + "message/" + id, {
-//         method: "DELETE",
-//         headers: {
-//             "Content-Type": "application/json",
-//             "Authorization": "Bearer " + localStorage.getItem("token"),
-//         },
-//     })
-//         // Return response in json
-//         .then((res) => {
-//             if (res.ok) return res.json()
-//         })
-//         // Save response in res
-//         .then((res) => {
-//             console.log(res)
-//             this.getMessages()
-//         })
-//         // Catch error
-//         .catch((err) => {
-//             console.log(err)
-//         })
-// }
 
 // // TODO : Add function if heart is clicked then toggle class is-active
 function likeMessage() {
     const heart = document.querySelector('#heart')
     heart.addEventListener('click', () => {
-        if (heart.classList.contains('is-active')) {
-            heart.classList.remove('is-active')
-        } else {
-            heart.classList.add('is-active')
-        }
+        console.log('click')
     })
 }
-
 
 </script>
 
@@ -86,21 +89,27 @@ function likeMessage() {
 
         <!-- TODO Timestamp & User option -->
         <p id="message-info" class="post-timestamp mt-2">{{ postDate }}
-            <!-- Edit button TODO IF USER IS ADMIN OR AUTHOR -->
-            <router-link to="#" v-if="userCommande === true" id="edit-btn" class="edit-button">Edit</router-link>
+            <!-- Edit button with click prevent use function editClicked --> 
+            <button v-if="userCommande" id="edit-btn" class="edit-button" @click="edit">Edit</button>
             <!-- Delete button TODO IF USER IS ADMIN OR AUTHOR -->
-            <router-link to="#" v-if="userCommande === true" id="delete-btn" class="delete-button">Delete</router-link>
+            <button v-if="userCommande" id="delete-btn" class="delete-button" @click.prevent="deletePost">Delete</button>
         </p>
         
 
         <!-- Message -->
         <p v-if="message" id="user-message" class="post-text">{{message}}</p>
         
+        <!-- TODO DISPLAY IF EDIT CLIQUED -->
+        <div v-if="editClicked" class="edit-message">
+            <textarea class="form-control" id="edit-message" rows="3">{{message}}</textarea>
+            <button type="button" class="btn btn-primary" @click.prevent="editePost">Save</button>
+        </div>
+        
         <!-- Post Option-->
         <div class="post-option mb-1">
             <!-- Heart -->
             <div class="placement">
-                <div id="heart" class="heart" @click.prevent="likeMessage()"></div>
+                <div id="heart" class="heart" @click.prevent="likeMessage"></div>
             </div>
         </div>
     </div>
