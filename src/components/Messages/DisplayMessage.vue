@@ -25,14 +25,34 @@ export default {
         'status'
     ],
     methods: {
+        // Display edit form for message
         edit() {
             this.editClicked = true
-            console.log("ok")
         },
+        // Send edited message to the server
         editePost() {
             this.editClicked = false
-            console.log("saved")
+            this.$refs.editMessage.value = this.message
+            fetch(fetchURL + "message/" + this.id, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                body: JSON.stringify({
+                    message: this.message,
+                    id: this.id
+                })
+            })
+                .then(res => {
+                    if (res.ok) {
+                        alert("Message modifié")
+                    }
+                    else throw new Error("Error editing post")
+                })
+                .catch(error => console.log(error))
         },
+        // Delete message
         deletePost() {
             fetch(fetchURL + "message/" + this.id, {
                 method: 'DELETE',
@@ -46,7 +66,7 @@ export default {
                             if (res.ok) {
                                 this.$router.go()
                             }
-                            else throw new Error("Erreur de suppression")
+                            else throw new Error("Delete error")
                 })
                 .catch(error => console.log(error))
         },
@@ -101,8 +121,20 @@ function likeMessage() {
         
         <!-- TODO DISPLAY IF EDIT CLIQUED -->
         <div v-if="editClicked" class="edit-message">
-            <textarea class="form-control" id="edit-message" rows="3">{{message}}</textarea>
-            <button type="button" class="btn btn-primary" @click.prevent="editePost">Save</button>
+            <textarea 
+                class="form-control" 
+                id="edit-message" 
+                rows="3"
+                maxlength="500"
+                ref="editMessage"
+                v-model="message"
+                >{{message}}
+            </textarea>
+            <button 
+                type="button" 
+                class="btn btn-primary mt-1 rounded-pill" 
+                :disabled="message.length <= 0"
+                @click.prevent="editePost">Save</button>
         </div>
         
         <!-- Post Option-->
