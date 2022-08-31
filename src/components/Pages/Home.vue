@@ -46,9 +46,14 @@ export default {
                 .then(res => {
                     // Display all posts in order of date (last post first)
                     const posts = res.posts.sort((a, b) => new Date(b.date) - new Date(a.date))
+                    
+                    // Change format date 
+                    posts.forEach(post => {
+                        post.date = new Date(post.date).toLocaleString()
+                    })
+
                     this.posts = posts
-                    // Todo convert date to good format HH:MM:SS
-                    // console.log(this.posts)
+
                 })
                 .catch(err => console.log(err))
         },
@@ -108,6 +113,8 @@ export default {
                             :bio="post.user.bio"
                             :role="post.user.role"
                             :status="post.user.status"
+                            :likes="post.likes"
+                            :usersLike="post.usersLiked"
                         >
                         </DisplayMessage>
                     </li>
