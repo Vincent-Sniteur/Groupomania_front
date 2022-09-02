@@ -26,6 +26,7 @@ export default {
     methods: {
         // Get all posts
         allPost() {
+            loader() // Loader animation Timeout
             fetch(fetchURL + "message", {
                     method: "GET",
                     headers: {
@@ -68,6 +69,13 @@ export default {
     },
 }
 
+// Loader display animation only for 1s (Timeout) before the fetch
+function loader() {
+    setTimeout(() => {
+        document.getElementById("preloader").style.display = "none"
+    }, 600)
+}
+
 </script>
 
 
@@ -94,7 +102,14 @@ export default {
                 <div class="tab-content">
                     <!-- POST MESSAGE -->
                     <CreateMessage />
-                    
+
+                    <!-- Loader -->
+                    <div id="preloader" class="preloader">
+                        <p class="loading-text">loading</p>
+                        <div class="loader"></div>
+                    </div>
+
+
                     <!-- Display message if no post // Add in a post composant -->
                     <div v-if="posts.length === 0" class="text-center">
                         <h3 class="text-center alert-danger alert">No post yet</h3>
@@ -134,4 +149,45 @@ export default {
 li {
     list-style: none;
 }
+
+/* Preloader */
+/* Animation Preload */
+@keyframes spinner {
+	to {
+		transform: rotateZ(360deg);
+	}
+}
+.preloader {
+	align-items: center;
+    cursor: none;
+	display: flex;
+    height: 100%;
+    justify-content: center;
+	position: fixed;
+	left: 0;
+    top: 0;
+	width: 100%;
+    z-index: 9999;
+    background-color: #fff;
+    opacity: 0.9;
+}
+.preloader .loading-text {
+    color: #000;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: absolute;
+    top: 52%;
+}
+/* Loader */
+.preloader .loader {
+    animation: spinner 1s infinite linear;
+    border-radius: 50%;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+    border-top-color: #000000;
+    height: 5em;
+    margin: 0 auto 3.5em auto;
+    width: 5em;
+}
+
 </style>
