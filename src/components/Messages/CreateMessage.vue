@@ -1,6 +1,6 @@
 <script>
-const { VITE_SERVER_URL, VITE_SERVER_PORT } = import.meta.env
-const fetchURL = 'http://' + VITE_SERVER_URL + ':' + VITE_SERVER_PORT + '/'
+// Service fetch create post
+import postMessageFetch from '../services/postMessage.js'
 
 // Data component
 const data = () => {
@@ -48,38 +48,23 @@ function sendImage() {
 
 // Send the form to the server for create message
 function sendMessage(postMessage, postImage, userId) {
-     // Option for the fetch
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("token"),
-        },
-        body: JSON.stringify({ postMessage, postImage, userId }),
-    }
-    fetch(fetchURL + "message/create", options)
-        // Return response in json or error message
-        .then((res) => {
-            if (res.ok) return res.json()
-            throw new Error(res.status)
-        })
-        // Save response in res
+ 
+    // Service post message
+    postMessageFetch(postMessage, postImage, userId)
         .then((res) => {
             // If success
             sucessPost()
 
-            // Reset form
+            // Reset form & image preview
             this.postMessage = ""
             this.postImage = ""
             this.userId = ""
 
-            // Force reload component Home to display new post
-            this.$router.go(0)
-
+            // Force reload the parent to get all posts
+            this.$parent.allPost()
         })
-        // Catch error
-        .catch((err) => {
-            console.log(err)
+        .catch((error) => {
+            console.log(error)
         })
 }
 

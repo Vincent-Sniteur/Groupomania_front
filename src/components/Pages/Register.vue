@@ -1,8 +1,5 @@
 <script>
-import store from '../../store'
-
-const { VITE_SERVER_URL, VITE_SERVER_PORT } = import.meta.env
-const fetchURL = 'http://' + VITE_SERVER_URL + ':' + VITE_SERVER_PORT + '/'
+import authRegisterFetch from '../services/authRegister.js'
 
 // Data component
 const data = () => {
@@ -51,42 +48,32 @@ export default {
 
 // Function formUser for register user with email and password
 function formUserValidity(email, password) {
-  const authOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ email, password })
-  }
-  fetch(fetchURL + "auth/register", authOptions)
-    // Return response in json
+
+  // Service authFetch for register user
+  authRegisterFetch(email, password)
     .then((res) => {
-      if (res.ok) return res.json()
-    })
-    // Save token & userId in localStorage & store user in store
-    .then((res) => {
-      // Save token & userId in localStorage
-      localStorage.setItem("token", res.token)
-      localStorage.setItem("userId", res.userId)
+        // Save token & userId in localStorage
+        localStorage.setItem("token", res.token)
+        localStorage.setItem("userId", res.userId)
 
 
-      // Stringify user in localStorage
-      const userInfo = JSON.stringify(res)
-      // Save user in localStorage
-      localStorage.setItem("user", userInfo)
-      
-      // Send res in store user
-      this.$store.commit("setUser", res)
-      
-      // Verify if token is in localStorage
-      let tokenInCache
-      while (tokenInCache == null) {
-        tokenInCache = localStorage.getItem("token")
-      }
+        // Stringify user in localStorage
+        const userInfo = JSON.stringify(res)
+        // Save user in localStorage
+        localStorage.setItem("user", userInfo)
+        
+        // Send res in store user
+        this.$store.commit("setUser", res)
+        
+        // Verify if token is in localStorage
+        let tokenInCache
+        while (tokenInCache == null) {
+          tokenInCache = localStorage.getItem("token")
+        }
 
-      // Redirect to Home page
-      this.$router.push("/home")
-    })
+        // Redirect to Home page
+        this.$router.push("/home")
+      })
     // Catch error if login failed and display error message
     .catch((err) => {
       isFormIncorrect()

@@ -1,8 +1,5 @@
 <script>
-import store from '../../store'
-
-const { VITE_SERVER_URL, VITE_SERVER_PORT } = import.meta.env
-const fetchURL = 'http://' + VITE_SERVER_URL + ':' + VITE_SERVER_PORT + '/'
+import authLoginFetch from '../services/authLogin.js'
 
 // Data component
 const data = () => {
@@ -51,20 +48,9 @@ export default {
 // Function formUser for login user with email and password in database
 // Get token & userId in response and save in localStorage & store
 function formUserValidity(email, password) {
-  const authOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ email, password })
-  }
-  // Fetch login
-  fetch(fetchURL + "auth/login", authOptions)
-    // Return response in json
-    .then((res) => {
-      if (res.ok) return res.json()
-    })
-    // Save token & userId in localStorage & store user in store
+
+  // Service authFetch for login user
+  authLoginFetch(email, password)
     .then((res) => {
       // Save token & userId in localStorage
       localStorage.setItem("token", res.token)

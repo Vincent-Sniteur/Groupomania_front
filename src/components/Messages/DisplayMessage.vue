@@ -1,6 +1,10 @@
 <script>
-const { VITE_SERVER_URL, VITE_SERVER_PORT } = import.meta.env
-const fetchURL = 'http://' + VITE_SERVER_URL + ':' + VITE_SERVER_PORT + '/'
+// Service fetch like post
+import likePostsFetch from '../services/likePosts.js'
+// Service fetch delete post
+import deletePostsFetch from '../services/deletePosts.js'
+// Service fetch edit post
+import editPostsFetch from '../services/editPosts.js'
 
 // Export the display message component with like / edit / delete buttons
 export default {
@@ -40,20 +44,13 @@ export default {
             // New message content
             this.$refs.editMessage.value = this.message
 
-            fetch(fetchURL + "message/" + this.id, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
-                },
-                body: JSON.stringify({
-                    message: this.message,
-                    id: this.id
-                })
-            })
+            // Service edit message
+            const id = this.id
+            const message = this.message
+            editPostsFetch(id, message)
                 .then(res => {
                     if (res.ok) {
-                        alert("Message modifié")
+                        this.$parent.allPost()
                     }
                     else throw new Error("Error editing post")
                 })
@@ -61,49 +58,39 @@ export default {
         },
         // Delete message
         deletePost() {
-            fetch(fetchURL + "message/" + this.id, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    "Authorization": "Bearer " + localStorage.getItem("token")
-                },
-            })
+            // Service delete message
+            const id = this.id
+            deletePostsFetch(id)
                 .then((res) => {
                         // If res is valide force reload
                             if (res.ok) {
-                                this.$router.go()
+                                this.$parent.allPost()
                             }
                             else throw new Error("Delete error")
                 })
                 .catch(error => console.log(error))
         },
-        // Like message & send to server
+        // Like Post & send to server
         likePost() {
-            // Verify If user already liked the post or not
-            if (this.usersLike.includes(this.$store.state.user.userId)) {
-                this.postLike = false
-            }
-            else {
-                this.postLike = true
-            }
-            // fetch to server
-            fetch(fetchURL + "message/" + this.id + "/like", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
-                },
-                body: JSON.stringify({
-                    id: this.id,
-                    userId: this.$store.state.user.userId,
-                    likes: this.postLike
-                })
-            })
+            const id = this.id
+            const likes = this.postLike
+            const userId = this.$store.state.user.userId
+
+            // Service like post
+            likePostsFetch(id, likes, userId)
                 .then(res => {
                     if (res.ok) {
-                        this.$router.go()
+                        // Delete all post & get all post again to display the new list
+                        this.$parent.allPost()
+                        // this.heart = !this.heart
                     }
-                    else throw new Error("Error liking post")
+                    // Verify If user already liked the post or not
+                    if (this.usersLike.includes(this.$store.state.user.userId)) {
+                        this.postLike = false
+                    }
+                    else {
+                        this.postLike = true
+                    }
                 })
                 .catch(error => console.log(error))
         },
