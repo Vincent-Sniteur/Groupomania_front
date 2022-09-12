@@ -2,8 +2,11 @@
 
   # Groupomania
 
-Frontend P7 in construction
+- Project 7 - FrontEnd
 
+- The project consists of building an internal social network for Groupomania employees.
+
+- The purpose of this tool is to facilitate interactions between colleagues.
 
 
 </div>
@@ -41,4 +44,4 @@ Frontend P7 in construction
 
 * **Vincent ~ Sniteur** _alias_ [@Vincent-Sniteur](https://github.com/Vincent-Sniteur)
 Started : 28/07/2022
-Finished : x/x/2022
+Finished : 12/09/2022
