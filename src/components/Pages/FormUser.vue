@@ -1,5 +1,5 @@
 <script>
-import fetchURL from '../services/fetch'
+import editProfilFetch from '../services/editProfil.js'
 
 // Data component
 const data = () => {
@@ -62,17 +62,8 @@ function formUpdateUser(username, bio, avatar, oldAvatar) {
         avatar = null
         oldAvatar = this.$store.state.user.avatar
     }
-    // Option for the fetch
-    const authOptions = {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("token"),
-        },
-        body: JSON.stringify({ username, bio, avatar, oldAvatar }),
-    }
-    // Fetch to the server
-    fetch(fetchURL + "auth/edit-users/" + localStorage.getItem("userId"), authOptions)
+    // Service to send form for Edit Profil
+    editProfilFetch(username, bio, avatar, oldAvatar)
         // Return response in json
         .then((res) => {
             if (res.ok) return res.json()

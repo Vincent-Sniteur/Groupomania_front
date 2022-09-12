@@ -19,16 +19,14 @@ export default {
 
 <template>
 
-<div class="form-box container mt-2">
-        <div class="section-title-wrap red">
-          <h2 class="section-title">Edit Your Profil</h2>
-          <div class="section-title-separator"></div>
-        </div>
+  <div class="form-box container mt-2">
+    <div class="section-title-wrap red">
+      <h2 class="section-title">Edit Your Profil</h2>
+        <div class="section-title-separator"></div>
+    </div>
 
-        <FormUser></FormUser>
-
-
-</div>
+    <FormUser></FormUser>
+  </div>
 
 </template>
 

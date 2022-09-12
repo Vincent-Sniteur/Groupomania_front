@@ -62,11 +62,11 @@ export default {
             const id = this.id
             deletePostsFetch(id)
                 .then((res) => {
-                        // If res is valide force reload
-                            if (res.ok) {
-                                this.$parent.allPost()
-                            }
-                            else throw new Error("Delete error")
+                    // If res is valide force reload
+                    if (res.ok) {
+                        this.$parent.allPost()
+                    }
+                    else throw new Error("Delete error")
                 })
                 .catch(error => console.log(error))
         },

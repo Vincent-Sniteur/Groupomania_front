@@ -27,7 +27,6 @@ export default {
 function sendImage() {
     // Get the file from the input
     const userImage = this.$refs.file.files[0]
-    console.log(userImage)
 
     // if file is not an image, return
     if (!userImage.type.match('image.*')) {
