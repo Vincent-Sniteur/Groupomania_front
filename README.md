@@ -2,14 +2,14 @@
 
   # Groupomania
 
-- Project 7 - FrontEnd
+Project 7 - FrontEnd
 
-- The project consists of building an internal social network for Groupomania employees.
+The project consists of building an internal social network for Groupomania employees.
 
-- The purpose of this tool is to facilitate interactions between colleagues.
-
+The purpose of this tool is to facilitate interactions between colleagues.
 
 </div>
+
 
 
 * Installation : `npm install`
@@ -33,6 +33,8 @@
 - vue
 
 - vue-router
+
+- vueX
 
 
 ## Dev Dependencies
