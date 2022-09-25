@@ -20,6 +20,16 @@ The purpose of this tool is to facilitate interactions between colleagues.
 
 * LocalHost server : `http://127.0.0.1:5173/`
 
+## Config env
+
+* Create an .env file in the source folder
+* Add in this file the list of information below and saved with your configuration
+
+VITE_SERVER_URL="localhost"
+
+VITE_SERVER_PORT="3000"
+
+
 ## Backend
 
 * [Backend Server & Documentation](https://github.com/Vincent-Sniteur/Groupomania_back)
