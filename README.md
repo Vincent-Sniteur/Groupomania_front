@@ -25,9 +25,9 @@ The purpose of this tool is to facilitate interactions between colleagues.
 * Create an .env file in the source folder
 * Add in this file the list of information below and saved with your configuration
 
-VITE_SERVER_URL="localhost"
+VITE_SERVER_URL=localhost
 
-VITE_SERVER_PORT="3000"
+VITE_SERVER_PORT=3000
 
 
 ## Backend
